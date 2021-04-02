@@ -7,7 +7,6 @@ public class SimpleMazeGenerator extends AMazeGenerator{
     //generate a simple maze
     public Maze generate(int rows, int columns) {
         Maze simpleMaze = new Maze(rows, columns); //create an empty maze
-
         //add randomly 0 and 1 to all the unchanged cells (remain 2)
         Random Ran = new Random();
         for (int i = 0; i < rows; i++) { //change all cells to 0/1
@@ -40,10 +39,10 @@ public class SimpleMazeGenerator extends AMazeGenerator{
     //this function will choose random position in the maze
     public Position choosePosition(int rows, int columns) {
         Random Ran = new Random();
-        int randomRow = Ran.nextInt((rows-1)); //select random row number
+        int randomRow = Ran.nextInt((rows)); //select random row number
         int randomCol;
         if(randomRow== 0 || randomRow==(rows-1)){ //if the chosen row is an edge row
-            randomCol = Ran.nextInt((columns-1)); }//select random column number
+            randomCol = Ran.nextInt((columns)); }//select random column number
         else { //if the chosen row isn't an edge row: we can choose only edge-columns
             double chooseHalf= Math.random(); //chose randomly: 0 / 1 , by using Math.random() function
             if(chooseHalf<0.4){

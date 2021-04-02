@@ -15,6 +15,16 @@ public class Maze {
         mazeContent = new int[Rows][Columns];
     }
 
+    public int getRows() {
+        return Rows;
+    }
+    public int getColumns() {
+        return Columns;
+    }
+    public int[][] getMazeContent(){
+        return mazeContent;
+    }
+
     public Position getStartPosition() {
         return start;}
 

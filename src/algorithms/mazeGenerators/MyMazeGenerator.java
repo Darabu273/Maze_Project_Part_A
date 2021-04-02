@@ -11,19 +11,27 @@ public class MyMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate(int rows, int columns) {
         Maze myMaze = new Maze(rows, columns); //create an empty maze
+
+        /*if (rows < 3 || columns < 3){
+            Position StartPos = new Position(0, 0);
+            Position EndPos = new Position(rows-1, columns-1);
+            myMaze.setStartPosition(StartPos); //set the start position of the maze
+            myMaze.setGoalPosition(EndPos); //set the end position of the maze
+            return myMaze;
+        }*/
         for (int r = 0; r <rows ; r++) { //init to 1 all the cells
             for (int c = 0; c <columns ; c++) {
                 myMaze.mazeContent[r][c]= 1;
             }
         }
         boolean [][] VisitedCells = new boolean[rows][columns]; //create an boolean matrix that saved cell as visited or not
-        int randomRow = Ran.nextInt((rows-1)); //select random row number
+        int randomRow = Ran.nextInt((rows)); //select random row number
         Position StartPos = new Position(randomRow, 0);
         myMaze.mazeContent[randomRow][0]= 0; //change selected start position to 0
         myMaze.setStartPosition(StartPos); //set the start position of the maze
         changeStatus(randomRow,0,VisitedCells); //change Start position as visited
         //choose random goal position cell in the maze
-        int randomRow_2 = Ran.nextInt((rows-1)); //select random row number
+        int randomRow_2 = Ran.nextInt((rows)); //select random row number
         Position EndPos = new Position(randomRow_2, (columns-1));
         myMaze.mazeContent[randomRow_2][(columns-1)]= 0; //change selected goal position to 0
         myMaze.setGoalPosition(EndPos); //set the start position of the maze

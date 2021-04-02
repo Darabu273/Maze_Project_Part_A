@@ -64,10 +64,6 @@ public class SimpleMazeGenerator extends AMazeGenerator{
 
     }
 
-    /*     while (!(currR==EndPos.getRowIndex())){
-            BuildSolutionByRow(currR, EndPos.getRowIndex());
-            simpleMaze.mazeContent[currR][currC]= 0;}*/
-
     //help function  - change currR accordingly  to EndRow value
     public void BuildSolutionByRow(int currR, int EndRow, Maze maze) {
         while(!(currR==maze.getGoalPosition().getRowIndex())){

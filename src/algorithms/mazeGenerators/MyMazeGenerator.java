@@ -76,8 +76,6 @@ public class MyMazeGenerator extends AMazeGenerator {
         Position Neighbor = neighbors.get(rand);
         neighbors.remove(rand);
         return Neighbor;
-
-
     }
 
     private ArrayList<Position> findNeighbors(Position current, Maze myMaze,boolean [][]VisitedCells) {

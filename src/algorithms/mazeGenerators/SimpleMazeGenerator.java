@@ -31,8 +31,6 @@ public class SimpleMazeGenerator extends AMazeGenerator{
         int currR = StartPos.getRowIndex();
         int currC = StartPos.getColumnIndex();
 
-        //todo : debug this part
-
         BuildSolutionByCol(currC, EndPos.getColumnIndex(),simpleMaze);
         BuildSolutionByRow(currR, EndPos.getRowIndex(), simpleMaze);
 

@@ -5,20 +5,27 @@ import algorithms.mazeGenerators.Position;
 
 import java.util.ArrayList;
 
+/**
+ * SearchableMaze will represent a Maze Searchable-problem
+ * this class is an Object-Adapter from a maze instance, to an ISearchable problem
+ */
 
 public class SearchableMaze implements ISearchable{
     Maze myMaze;
 
+    //constructor
     public SearchableMaze(Maze maze) {
         myMaze = maze;
     }
 
+    //return the start position of the problem
     public AState getStartState() {
         MazeState startPos = new MazeState(myMaze.getStartPosition());
         return startPos;
     }
 
     @Override
+    //return the goal position of the problem
     public AState getGoldState() {
         MazeState endPos = new MazeState(myMaze.getGoalPosition());
         return endPos;

@@ -16,6 +16,11 @@ public class MazeState extends AState{
     }
 
     @Override
+    public int hashCode() {
+        return (position.getRowIndex()+position.getColumnIndex()) % 11;
+    }
+
+    @Override
     //compare between two MazeStates
     public boolean equals(Object obj) {
         boolean ans =this.position.equals(((MazeState)obj).position);

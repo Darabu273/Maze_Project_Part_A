@@ -5,6 +5,21 @@ package algorithms.search;
  * this generic abstract class defines the functions the of every problem-state needs
  */
 public abstract class AState {
+    private AState prevState;
+
+    public AState() {
+        this.prevState = null;
+    }
+
+    public AState getPrevState() { return prevState;}
+
+    public void setPrevState(AState prevState) {
+        this.prevState = prevState;
+    }
+
+    @Override
+
+    public abstract int hashCode();
 
     @Override
     //compare two AStates

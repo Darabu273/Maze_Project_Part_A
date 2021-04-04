@@ -4,8 +4,7 @@ import java.util.Stack;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm{
 
-    public BreadthFirstSearch(ISearchable problem) {
-        super(problem);
+    public BreadthFirstSearch() {
     }
 
     @Override

@@ -26,7 +26,7 @@ public class SearchableMaze implements ISearchable{
 
     @Override
     //return the goal position of the problem
-    public AState getGoldState() {
+    public AState getGoalState() {
         MazeState endPos = new MazeState(myMaze.getGoalPosition());
         return endPos;
     }

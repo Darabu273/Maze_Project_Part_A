@@ -10,12 +10,11 @@ import java.util.*;
  */
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         protected int visitedNodes;
-        ISearchable search;
+        ISearchable problem;
 
         //constructor
-        public ASearchingAlgorithm(ISearchable search) {
+        public ASearchingAlgorithm() {
                 this.visitedNodes = 0 ;
-                this.search = search;
         }
 
         @Override

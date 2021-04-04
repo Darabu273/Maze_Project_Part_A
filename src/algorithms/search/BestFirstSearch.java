@@ -3,7 +3,7 @@ package algorithms.search;
 public class BestFirstSearch extends BreadthFirstSearch{
 
     public BestFirstSearch(ISearchable problem) {
-        super(problem);
+
     }
 
     @Override

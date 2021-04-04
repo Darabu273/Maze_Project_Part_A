@@ -11,7 +11,7 @@ public interface ISearchable {
     public abstract AState getStartState();
 
     //Get the goal position of the specific problem
-    public abstract AState getGoldState();
+    public abstract AState getGoalState();
 
     //Get all progress options, from a given state position
     public abstract ArrayList<AState> getAllSuccessors(AState s);

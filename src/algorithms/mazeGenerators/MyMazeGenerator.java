@@ -11,14 +11,6 @@ public class MyMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate(int rows, int columns) {
         Maze myMaze = new Maze(rows, columns); //create an empty maze
-
-        /*if (rows < 3 || columns < 3){
-            Position StartPos = new Position(0, 0);
-            Position EndPos = new Position(rows-1, columns-1);
-            myMaze.setStartPosition(StartPos); //set the start position of the maze
-            myMaze.setGoalPosition(EndPos); //set the end position of the maze
-            return myMaze;
-        }*/
         for (int r = 0; r <rows ; r++) { //init to 1 all the cells
             for (int c = 0; c <columns ; c++) {
                 myMaze.mazeContent[r][c]= 1;

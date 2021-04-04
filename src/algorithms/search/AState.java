@@ -13,8 +13,8 @@ public abstract class AState {
 
     public AState getPrevState() { return prevState;}
 
-    public void setPrevState(AState prevState) {
-        this.prevState = prevState;
+    public void setPrevState(AState father) {
+        this.prevState = father;
     }
 
     @Override

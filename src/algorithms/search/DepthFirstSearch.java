@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
 
-
 /**
  * DFS Algorithm - one option of SearchingAlgorithm
  * holds stack of nodes
@@ -19,12 +18,12 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
     }
     @Override
     //solve the problem, using DFS Algorithm
-    public Solution solve(ISearchable problem) {
-        DFS(problem, stack);
+    public Solution solve(ISearchable problem){
+        AState temp = DFS(problem, stack);
+        if(temp==null){return null;} //todo: except?
         //return the solution path which has been found -reverse the path of the problem
         ArrayList<AState> path = new ArrayList<AState>();
-        AState temp = problem.getGoalState();
-        while(temp != problem.getStartState()){
+        while(!temp.equals(problem.getStartState())){
             path.add(0,temp);
             temp = temp.getPrevState();
         }
@@ -34,42 +33,38 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         return sol;
     }
 
-    public void DFS(ISearchable problem, Stack<AState> stack)
+    //dfs search algorithm
+    public AState DFS(ISearchable problem, Stack<AState> stack)
     {
         AState start = problem.getStartState();
         AState end = problem.getGoalState();
-        // HashSet will saved visited AState (we have seen this state of the problem)
+        //HashSet will saved visited AState (we have seen this state of the problem)
         HashSet<AState> hsVisited = new HashSet<AState>();
-        //  the start node in the stack
+        //the start node in the stack
         hsVisited.add(start);
         stack.push(start);
 
-
-        // While there is node to be handled in the stack
         while (!stack.empty())
         {
-            // Handle the node on the top of the stack and retrieve its unvisited neighbors
+            // curr = the top  Astate of the stack
             AState curr = popFromStructure();
 
-            // Terminate if the goal is reached
+            //if we have found the goal state - finish the algorithm
             if (curr.equals(end))
-                break;
+                return curr;
 
-            // Take unvisited neighbors in order (eg. Noth, East, South, West),
-            // set its parent, mark as visited, and add to the stack
+            // find all the neighbors of the state
             ArrayList<AState> neighbors = problem.getAllSuccessors(curr);
             for (int i = 0; i < neighbors.size(); ++i)
             {
-                if (!(hsVisited.contains(neighbors.get(i)))){
-                    hsVisited.add(neighbors.get(i));
-                    neighbors.get(i).setPrevState(curr);
-                    stack.push(neighbors.get(i));
+                if (!(hsVisited.contains(neighbors.get(i)))){ //check if this neighbor is visited
+                    hsVisited.add(neighbors.get(i)); //if not - add this neighbor to the hsVisited hash table
+                    neighbors.get(i).setPrevState(curr); //set curr to be this neighbor father
+                    stack.push(neighbors.get(i)); //push the neighbor into the stack
                 }
             }
         }
-
-        // Done ! At this point we just have to walk back from the end using the parent
-        // If end does not have a parent, it means that it has not been found.
+        return null;
     }
 
     @Override

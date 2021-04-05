@@ -19,12 +19,10 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
     public Solution solve(ISearchable problem) {
         AState start = problem.getStartState();
         AState end = problem.getGoalState();
-        //HashMap will saved visited AStates (we have seen those states while solving this problem)
-        //key = Astate's toString result (string)
-        //value = the Astate itself
-        HashMap<String, AState> hsVisited = new HashMap<String, AState>();
+        //HashSet will saved visited AStates (we have seen those states while solving this problem)
+        HashSet<AState> hsVisited = new HashSet<AState>();
         //the start Astate will mark as visit, and be pushed into the queue
-        hsVisited.put(start.toString(), start);
+        hsVisited.add(start);
 
         queue.add(start);
         AState curr = null;
@@ -46,9 +44,9 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
             ArrayList<AState> neighbors = problem.getAllSuccessors(curr);
             for (int i = 0; i < neighbors.size(); ++i)
             {
-                if (!(hsVisited.containsKey(neighbors.get(i).toString()))){ //check if this neighbor is visited
+                if (!(hsVisited.contains(neighbors.get(i)))) { //check if this neighbor is visited
                     //if not - add this neighbor to the hsVisited hash table
-                    hsVisited.put(neighbors.get(i).toString(), neighbors.get(i));
+                    hsVisited.add(neighbors.get(i));
                     neighbors.get(i).setPrevState(curr); //set curr to be this neighbor father
                     queue.add(neighbors.get(i)); //push the neighbor into the queue
                 }

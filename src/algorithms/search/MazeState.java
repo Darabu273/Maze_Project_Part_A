@@ -2,6 +2,8 @@ package algorithms.search;
 
 import algorithms.mazeGenerators.Position;
 
+import java.util.Objects;
+
 /**
  * will represent an AState of the Maze problem, holds a specific position in the Maze
  */
@@ -25,5 +27,10 @@ public class MazeState extends AState{
     @Override
     public String toString() {
         return position.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position.getRowIndex(), position.getColumnIndex());
     }
 }

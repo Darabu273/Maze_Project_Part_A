@@ -16,5 +16,4 @@ public interface ISearchable {
     //Get all progress options, from a given state position
     public abstract ArrayList<AState> getAllSuccessors(AState s);
 
-    public abstract boolean CheckSpecialCostPosition(AState curr , AState successor);
 }

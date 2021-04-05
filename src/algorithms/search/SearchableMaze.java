@@ -40,49 +40,59 @@ public class SearchableMaze implements ISearchable {
         //check the neighbors from above, below, right and left
         //Check that the neighbor being inspected is within range of the maze, and is not a wall (not equal 1)
         if (col - 1 >= 0 && myMaze.getMazeContent()[row][col - 1] == 0) {
-            successors.add(new MazeState(new Position(row, col - 1)));
+            MazeState Successor = new MazeState(new Position(row, col - 1));
+            Successor.setCurrCost(10);
+            successors.add(Successor);
         }
         if (col + 1 < myMaze.getColumns() && myMaze.getMazeContent()[row][col + 1] == 0) {
-            successors.add(new MazeState(new Position(row, col + 1)));
+            MazeState Successor = new MazeState(new Position(row, col + 1));
+            Successor.setCurrCost(10);
+            successors.add(Successor);
         }
         if (row - 1 >= 0 && myMaze.getMazeContent()[row - 1][col] == 0) {
-            successors.add(new MazeState(new Position(row - 1, col)));
+            MazeState Successor = new MazeState(new Position(row - 1, col));
+            Successor.setCurrCost(10);
+            successors.add(Successor);
+
         }
         if (row + 1 < myMaze.getRows() && myMaze.getMazeContent()[row + 1][col] == 0) {
-            successors.add(new MazeState(new Position(row + 1, col)));
+            MazeState Successor = new MazeState(new Position(row + 1, col));
+            Successor.setCurrCost(10);
+            successors.add(Successor);
         }
         //add the neighbors diagonally, which can be reached through one of the non-diagonal neighbors
         if (row - 1 >= 0 && col - 1 >= 0 && myMaze.getMazeContent()[row - 1][col - 1] == 0 &&
                 (myMaze.getMazeContent()[row - 1][col] == 0 || myMaze.getMazeContent()[row][col - 1] == 0)) {
-            successors.add(new MazeState(new Position(row - 1, col - 1)));
+            MazeState Successor = new MazeState(new Position(row - 1, col - 1));
+            Successor.setCurrCost(15);
+            successors.add(Successor);
         }
 
         if (row + 1 < myMaze.getRows() && col + 1 < myMaze.getColumns() && myMaze.getMazeContent()[row + 1][col + 1] == 0 &&
                 (myMaze.getMazeContent()[row + 1][col] == 0 || myMaze.getMazeContent()[row][col + 1] == 0)) {
-            successors.add(new MazeState(new Position(row + 1, col + 1)));
+            MazeState Successor = new MazeState(new Position(row + 1, col + 1));
+            Successor.setCurrCost(15);
+            successors.add(Successor);
         }
 
         if (row - 1 >= 0 && col + 1 < myMaze.getColumns() && myMaze.getMazeContent()[row - 1][col + 1] == 0 &&
                 (myMaze.getMazeContent()[row - 1][col] == 0 || myMaze.getMazeContent()[row][col + 1] == 0)) {
-            successors.add(new MazeState(new Position(row - 1, col + 1)));
+            MazeState Successor = new MazeState(new Position(row - 1, col + 1));
+            Successor.setCurrCost(15);
+            successors.add(Successor);
         }
 
         if (row + 1 < myMaze.getRows() && col - 1 >= 0 && myMaze.getMazeContent()[row + 1][col - 1] == 0 &&
                 (myMaze.getMazeContent()[row + 1][col] == 0 || myMaze.getMazeContent()[row][col - 1] == 0)) {
-            successors.add(new MazeState(new Position(row + 1, col - 1)));
+            MazeState Successor = new MazeState(new Position(row + 1, col - 1));
+            Successor.setCurrCost(15);
+            successors.add(Successor);
+
         }
 
         return successors;
     }
 
-    public boolean CheckSpecialCostPosition(AState curr, AState successor) {
-        int rowCurr = ((MazeState) curr).position.getRowIndex();
-        int colCurr = ((MazeState) curr).position.getColumnIndex();
-
-        int rowNei = ((MazeState) successor).position.getRowIndex();
-        int colNei = ((MazeState) successor).position.getColumnIndex();
-        return rowCurr != rowNei && colCurr != colNei;
-    }
 }
 
 

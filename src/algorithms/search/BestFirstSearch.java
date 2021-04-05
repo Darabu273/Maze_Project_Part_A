@@ -11,8 +11,4 @@ public class BestFirstSearch extends BreadthFirstSearch{
         return null;
     }
 
-    @Override
-    protected AState popFromStructure() {
-        return null;
-    }
 }

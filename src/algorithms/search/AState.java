@@ -18,10 +18,6 @@ public abstract class AState {
     }
 
     @Override
-
-    public abstract int hashCode();
-
-    @Override
     //compare two AStates
     public abstract boolean equals(Object obj);
 

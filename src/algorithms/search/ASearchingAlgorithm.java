@@ -33,9 +33,6 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         //Solve the problem, return the Solution
         public abstract Solution solve(ISearchable problemS);
 
-        //pop the next AState from the Stack, return this AState, and add 1 to the visitedNodes counter
-        protected abstract AState popFromStructure();
-
 }
 
 

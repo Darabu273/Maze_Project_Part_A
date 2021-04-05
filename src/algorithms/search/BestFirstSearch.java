@@ -9,10 +9,10 @@ public class BestFirstSearch extends BreadthFirstSearch{
     Comparator<AState> stateSorter = Comparator.comparing(AState::getSumCost);
 
     public BestFirstSearch() {
-        queue = new PriorityQueue<AState>(stateSorter);
+        struct = new PriorityQueue<AState>(stateSorter);
 
     }
-    @Override
+/*    @Override
     public Solution solve(ISearchable problem) {
         AState start = problem.getStartState();
         AState end = problem.getGoalState();
@@ -40,28 +40,20 @@ public class BestFirstSearch extends BreadthFirstSearch{
             for (int i = 0; i < neighbors.size(); ++i) {
                 if (!(hsVisited.contains(neighbors.get(i)))) { //check if this neighbor is visited
                     //if not - add this neighbor to the hsVisited hash table
-                    neighbors.get(i).setSumCost(curr.getSumCost() + neighbors.get(i).getCurrCost());
+                    addCost(curr, neighbors.get(i));
+//                    neighbors.get(i).setSumCost(curr.getSumCost() + neighbors.get(i).getCurrCost());
                     hsVisited.add(neighbors.get(i));
                     neighbors.get(i).setPrevState(curr); //set curr to be this neighbor father
                     queue.add(neighbors.get(i)); //push the neighbor into the queue
                 }
             }
-
         }
-        if (!foundSolution || curr == null) {
-            return null;
-        } //todo: except?
-        //return the solution path which has been found -reverse the path of the problem
-        ArrayList<AState> path = new ArrayList<AState>();
-        while (!curr.equals(problem.getStartState())) {
-            path.add(0, curr);
-            curr = curr.getPrevState();
-        }
-
-        path.add(0, problem.getStartState());
-        //create a Solution instance from this path
-        Solution sol = new Solution(path);
+        Solution sol = CreateSolution(foundSolution,curr,problem);
         return sol;
-    }
+    }*/
 
+    @Override
+    public void addCost(AState curr, AState neighbor) {
+        neighbor.setSumCost(curr.getSumCost() + neighbor.getCurrCost());
+    }
 }

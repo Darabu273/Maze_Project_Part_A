@@ -8,7 +8,7 @@ import java.util.*;
  */
 
 public class BreadthFirstSearch extends ASearchingAlgorithm{
-    private Queue<AState> queue;
+    protected Queue<AState> queue;
 
     public BreadthFirstSearch() {
         queue = new LinkedList<AState>();

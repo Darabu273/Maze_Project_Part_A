@@ -23,12 +23,6 @@ public class MazeState extends AState{
     }
 
     @Override
-    //return this MazeState position
-    public Object getStatus() {
-        return this.position;
-    }
-
-    @Override
     public String toString() {
         return position.toString();
     }

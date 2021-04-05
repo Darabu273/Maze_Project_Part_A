@@ -6,9 +6,20 @@ package algorithms.search;
  */
 public abstract class AState {
     private AState prevState;
+    private int cost; // cost to arrive curr State
 
     public AState() {
+
         this.prevState = null;
+        this.cost = 0;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public AState getPrevState() { return prevState;}
@@ -21,8 +32,6 @@ public abstract class AState {
     //compare two AStates
     public abstract boolean equals(Object obj);
 
-    //get the state itself
-    public abstract Object getStatus();
 
     @Override
     public abstract String toString();

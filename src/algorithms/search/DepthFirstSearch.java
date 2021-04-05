@@ -27,6 +27,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         HashMap<String, AState> hsVisited = new HashMap<String, AState>();
         //the start Astate will mark as visit, and be pushed into the stack
         hsVisited.put(start.toString(), start);
+
         stack.push(start);
 
         AState curr = null;

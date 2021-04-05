@@ -1,9 +1,13 @@
 package algorithms.search;
 
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+
 public class BestFirstSearch extends BreadthFirstSearch{
 
-    public BestFirstSearch(ISearchable problem) {
 
+    public BestFirstSearch() {
+        queue = new PriorityQueue<AState>();
     }
 
     @Override

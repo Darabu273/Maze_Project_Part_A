@@ -8,7 +8,7 @@ import java.util.*;
  */
 
 public class BreadthFirstSearch extends ASearchingAlgorithm{
-    private Queue<AState> queue;
+    protected Queue<AState> queue;
 
     public BreadthFirstSearch() {
         queue = new LinkedList<AState>();
@@ -25,9 +25,10 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
         HashMap<String, AState> hsVisited = new HashMap<String, AState>();
         //the start Astate will mark as visit, and be pushed into the queue
         hsVisited.put(start.toString(), start);
-        queue.add(start);
 
+        queue.add(start);
         AState curr = null;
+
         boolean foundSolution = false; //will be true if we have found a solution //todo: add except
         while (!queue.isEmpty())
         {
@@ -65,6 +66,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
         //create a Solution instance from this path
         Solution sol = new Solution(path);
         return sol;
+
     }
 
 

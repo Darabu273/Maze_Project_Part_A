@@ -8,23 +8,11 @@ import java.util.ArrayList;
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(10, 10);
+        Maze maze = mg.generate(1000, 1000);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
-        long s_time = System.currentTimeMillis(); //todo
         solveProblem(searchableMaze, new BreadthFirstSearch());
-        long e_time =System.currentTimeMillis(); //todo
-        System.out.println("time:"); //todo
-        System.out.println(e_time-s_time); //return end time minus start time //todo
-       long s_time2 = System.currentTimeMillis(); //todo
         solveProblem(searchableMaze, new DepthFirstSearch());
-        long e_time2 =System.currentTimeMillis(); //todo
-        System.out.println("time:"); //todo
-        System.out.println(e_time2-s_time2); //return end time minus start time //todo
-         long s_time3 = System.currentTimeMillis(); //todo
         solveProblem(searchableMaze, new BestFirstSearch());
-        long e_time3 =System.currentTimeMillis(); //todo
-        System.out.println("time:"); //todo
-        System.out.println(e_time3-s_time3); //return end time minus start time //todo
     }
     private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) {
         //Solve a searching problem with a searcher

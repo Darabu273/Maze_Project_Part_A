@@ -37,8 +37,9 @@ public class SearchableMaze implements ISearchable {
         ArrayList<AState> successors = new ArrayList<>();
         int row = ((MazeState) s).position.getRowIndex();
         int col = ((MazeState) s).position.getColumnIndex();
-        //check the neighbors from above, below, right and left
+        //check the neighbors from above, below, right and left, and diagonal-neighbors
         //Check that the neighbor being inspected is within range of the maze, and is not a wall (not equal 1)
+        //add to each valid neighbor it's cost - 10 for 'regular' neighbor, 15 for corner neighbor
         if (col - 1 >= 0 && myMaze.getMazeContent()[row][col - 1] == 0) {
             MazeState Successor = new MazeState(new Position(row, col - 1));
             Successor.setCurrCost(10);

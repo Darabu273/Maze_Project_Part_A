@@ -15,7 +15,7 @@ public abstract class AState {
         this.CurrCost = 0;
     }
 
-
+    //setters & getters
     public int getSumCost() {
         return SumCost;
     }
@@ -43,6 +43,7 @@ public abstract class AState {
     public abstract boolean equals(Object obj);
 
     @Override
+    //hashCode function, using for Hash structs (HashSet)
     public abstract int hashCode();
 
     @Override

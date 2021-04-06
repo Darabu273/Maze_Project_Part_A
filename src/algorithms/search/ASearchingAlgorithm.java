@@ -9,9 +9,8 @@ import java.util.*;
  * search: the search problem (Bridge design pattern)
  */
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
-        protected int visitedNodes;
-        protected Object struct;
-
+        protected int visitedNodes; //how many nodes / Astates we have expand
+        protected Object struct; //holds the struct that the ISearchingAlgorithm instance will use
 
         //constructor
         public ASearchingAlgorithm() {
@@ -33,12 +32,16 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         //abstract methode - insert into the Structure of the states
         public abstract void InsertStruct(Object struct, AState objectToInsert);
 
+        //abstract methode - check if the Struct is empty
         public abstract boolean IsEmptyStruct(Object struct);
 
+        //abstract methode - remove from the Struct
         public abstract AState removeFromStruct(Object struct);
 
+        //add cost for the given neighbor Astate- (implement only for the Best algorithm, using for polymorphism)
         public abstract void addCost(AState curr, AState neighbor);
 
+        //create the path of the solution, return the final Solution
         public Solution CreateSolution(boolean foundSolution, AState curr,ISearchable problem){
                 if(!foundSolution || curr == null){return null;} //todo: except?
                 //return the solution path which has been found - reverse the path of the problem
@@ -53,7 +56,9 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         }
 
         @Override
-        //Solve the problem, return the Solution
+        //Solve the problem, create the Solution by using CreateSolution function
+        //this function is generic function , using a specific struct for each instance of ISearchingAlgorithm
+        //solving the problem by using helper function, with no code-reuse at all
         public Solution solve(ISearchable problem){
                 AState start = problem.getStartState();
                 AState end = problem.getGoalState();

@@ -30,6 +30,7 @@ public class MazeState extends AState{
     }
 
     @Override
+    //hashCode function, using for Hash structs (HashSet)
     public int hashCode() {
         return Objects.hash(position.getRowIndex(), position.getColumnIndex());
     }

@@ -6,13 +6,16 @@ import java.util.*;
 
 public class BestFirstSearch extends BreadthFirstSearch{
 
+    //Comparator - using for sort element in the Comparator Priority Queue
     Comparator<AState> stateSorter = Comparator.comparing(AState::getSumCost);
 
+    //constructor - BEST based on Priority Queue
     public BestFirstSearch() {
         struct = new PriorityQueue<AState>(stateSorter);
     }
 
     @Override
+    //add cost for the given neighbor Astate- (implement only for the Best algorithm, using for polymorphism)
     public void addCost(AState curr, AState neighbor) {
         neighbor.setSumCost(curr.getSumCost() + neighbor.getCurrCost());
     }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 /**
  * Solution class will represent the Solution of the problem
- * solution ArrayList will hold the AStates of the Solution
+ * solution ArrayList will hold the AStates of the Solution.
+ *
  */
 
 public class Solution {

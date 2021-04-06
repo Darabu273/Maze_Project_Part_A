@@ -12,6 +12,8 @@ public class Maze {
     public Maze(int rows, int columns) {
         Rows=rows;
         Columns=columns;
+        start = null;
+        end = null;
         mazeContent = new int[Rows][Columns];
     }
 

@@ -18,14 +18,9 @@ public class Position {
     public int getRowIndex() {
         return my_row;}
 
-    public void setRowIndex(int my_row) {
-        this.my_row = my_row;}
-
     public int getColumnIndex() {
         return my_col;}
 
-    public void setColumnIndex(int my_col) {
-        this.my_col = my_col;}
 
     @Override
     public String toString() {

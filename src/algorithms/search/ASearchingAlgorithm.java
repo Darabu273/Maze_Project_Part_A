@@ -43,7 +43,7 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
 
         //create the path of the solution, return the final Solution
         public Solution CreateSolution(boolean foundSolution, AState curr,ISearchable problem){
-                if(!foundSolution || curr == null){return null;} //todo: except?
+                if(!foundSolution || curr == null){return null;}
                 //return the solution path which has been found - reverse the path of the problem
                 ArrayList<AState> path = new ArrayList<AState>();
                 while(!curr.equals(problem.getStartState())){
@@ -68,7 +68,7 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
                 hsVisited.add(start);
                 InsertStruct(struct,start);
                 AState curr = null;
-                boolean foundSolution = false; //will be true if we have found a solution //todo: add except
+                boolean foundSolution = false; //will be true if we have found a solution
                 while (!IsEmptyStruct(struct))
                 {
                         // curr = the top Astate of the stack

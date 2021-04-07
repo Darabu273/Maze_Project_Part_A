@@ -12,7 +12,7 @@ public class RunSearchOnMaze3D {
     public static void main(String[] args) {
         IMazeGenerator3D mg = new MyMaze3DGenerator();
         long s_time_0 = System.currentTimeMillis();//todo
-        Maze3D maze = mg.generate(5,5,5);
+        Maze3D maze = mg.generate(100,100,100);
         System.out.println(String.format("%s. %s","start:",maze.getStartPosition())); //todo
         System.out.println(String.format("%s. %s","end:",maze.getGoalPosition())); //todo
         long e_time_0 =System.currentTimeMillis();//todo
@@ -41,8 +41,8 @@ public class RunSearchOnMaze3D {
         //Printing Solution Path
         System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
-        for (int i = 0; i < solutionPath.size(); i++) { System.out.println(String.format("%s. %s",i,solutionPath.get(i)));
-        }
+/*        for (int i = 0; i < solutionPath.size(); i++) { System.out.println(String.format("%s. %s",i,solutionPath.get(i)));
+        }*/
         System.out.println(String.format("%s. %s","start:",solutionPath.get(0))); //todo
         System.out.println(String.format("%s. %s","end:",solutionPath.get(solutionPath.size()-1))); //todo
 

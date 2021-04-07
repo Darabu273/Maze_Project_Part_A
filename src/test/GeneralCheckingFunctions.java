@@ -1,14 +1,5 @@
 package test;
 
-import algorithms.maze3D.IMazeGenerator3D;
-import algorithms.maze3D.Maze3D;
-import algorithms.maze3D.MyMaze3DGenerator;
-import algorithms.maze3D.Position3D;
-import algorithms.mazeGenerators.IMazeGenerator;
-import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
-import algorithms.mazeGenerators.Position;
-
 public class GeneralCheckingFunctions {
 
     public static boolean check3DMaze(){

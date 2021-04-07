@@ -6,7 +6,10 @@ package algorithms.maze3D;
 
 public interface IMazeGenerator3D {
 
+    //create Maze instance
     Maze3D generate(int depth, int row, int column);
+
+    //measureAlgorithmTimeMillis will calculate the time of creating a new 3D Maze
     long measureAlgorithmTimeMillis(int depth, int row, int column);
 
 }

@@ -9,7 +9,7 @@ package algorithms.maze3D;
  */
 public abstract class AMaze3DGenerator implements IMazeGenerator3D {
 
-    public abstract Maze3D generate(int depth, int row, int column);
+    public abstract Maze3D generate(int depth, int row, int column); //create Maze instance
 
     public long measureAlgorithmTimeMillis(int depth, int row, int column){
         long s_time = System.currentTimeMillis();

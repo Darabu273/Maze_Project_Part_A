@@ -1,11 +1,10 @@
 package algorithms.search;
-import algorithms.mazeGenerators.Maze;
 
 import java.util.*;
 
 /**
  * DFS Algorithm - one option of SearchingAlgorithm
- * holds stack of nodes
+ * holds stack of Asates
  */
 
 public class DepthFirstSearch extends ASearchingAlgorithm {

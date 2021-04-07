@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * BFS Algorithm - one option of SearchingAlgorithm
- * holds queue of nodes
+ * holds queue of Asates
  */
 
 public class BreadthFirstSearch extends ASearchingAlgorithm{

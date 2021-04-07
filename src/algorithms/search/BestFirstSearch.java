@@ -1,8 +1,11 @@
 package algorithms.search;
 
-import algorithms.mazeGenerators.Position;
-
 import java.util.*;
+
+/**
+ * Best Algorithm - one option of SearchingAlgorithm , extends BFS
+ * holds PriorityQueue of Asates
+ */
 
 public class BestFirstSearch extends BreadthFirstSearch{
 

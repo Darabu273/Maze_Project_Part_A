@@ -5,7 +5,7 @@ package algorithms.search;
  * this generic abstract class defines the functions the of every problem-state needs
  */
 public abstract class AState {
-    private AState prevState;
+    private AState prevState; //each Astate will hold the previous state that it came from
     private int SumCost; // cost to arrive to this curr State, from the start
     private int CurrCost; //cost to move to this Astate, from the prev Astate
 

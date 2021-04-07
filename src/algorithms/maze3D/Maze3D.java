@@ -1,5 +1,11 @@
 package algorithms.maze3D;
 
+/**
+ * this class will represent a maze of 3D
+ * this class have depths, rows, columns sizes, start position and goal position (the target)
+ * moreover, it have a  maze data member, which contains the maze itself ([][][] int array)
+ */
+
 public class Maze3D {
     int rows;
     int columns;
@@ -8,6 +14,7 @@ public class Maze3D {
     private Position3D end;
     int [][][] maze;
 
+    //constructor
     public Maze3D(int depths,int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
@@ -16,6 +23,7 @@ public class Maze3D {
         this.end = null;
         this.maze = new int [depths][rows][columns];
     }
+
     //getter & setter
     public int getRows() { return rows;}
 

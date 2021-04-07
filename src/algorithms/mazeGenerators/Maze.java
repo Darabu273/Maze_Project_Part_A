@@ -1,8 +1,5 @@
 package algorithms.mazeGenerators;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
-
 /**
  * this class will represent a maze of 2D
  * this class have rows, columns sizes, start position and goal position (the target)
@@ -15,6 +12,8 @@ public class Maze {
     private Position end;
     int [][] mazeContent;
 
+
+    //constructor
     public Maze(int rows, int columns) {
         Rows=rows;
         Columns=columns;
@@ -23,6 +22,7 @@ public class Maze {
         mazeContent = new int[Rows][Columns];
     }
 
+    //getter & setter
     public int getRows() {
         return Rows;
     }

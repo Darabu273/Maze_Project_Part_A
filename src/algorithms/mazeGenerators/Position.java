@@ -1,5 +1,10 @@
 package algorithms.mazeGenerators;
 
+/**
+ * this class will represent a position in the 2D maze,
+ * this position have row & column indexes
+ */
+
 public class Position {
 
     private int my_row;

@@ -1,6 +1,4 @@
 package algorithms.maze3D;
-import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.Position;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,7 +14,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
     private Random Ran = new Random();
 
     //generate the Maze itself
-    public Maze3D generate(int depth, int row, int column){
+    public Maze3D generate(int depth, int row, int column) {
         Maze3D myMaze = new Maze3D(depth,row, column); //create an empty maze
         for (int r = 0; r <row ; r++) { //init to 1 all the cells
             for (int c = 0; c <column ; c++) {
@@ -145,7 +143,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
                     wallC = currC-1;}}
             }
 
-        myMaze.maze[wallD][wallR][wallC]= 0; //change wall position to 0
+        myMaze.maze[wallD][wallR][wallC]= 0; //change wall position to 0 (break wall)
         changeStatus(wallD,wallR,wallC, VisitedCells); //change wall position to 1 (mark as visited)
     }
 

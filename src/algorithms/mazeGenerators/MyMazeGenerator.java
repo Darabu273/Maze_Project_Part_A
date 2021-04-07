@@ -70,7 +70,9 @@ public class MyMazeGenerator extends AMazeGenerator {
         return Neighbor;
     }
 
+    //find all the unvisited neighbors of the current position
     private ArrayList<Position> findNeighbors(Position current, Maze myMaze,boolean [][]VisitedCells) {
+        //for each neighbor, add him into the neighbors array, if it's on the grid (maze), if it's not a corner, not the current position itself, and it's unvisited
         ArrayList<Position> neighbors = new ArrayList<>();
         for (int x = current.getRowIndex()-2; x < current.getRowIndex()+3; x=x+2) {
             for (int y = current.getColumnIndex()-2; y < current.getColumnIndex()+3 ; y=y+2) {
@@ -104,7 +106,7 @@ public class MyMazeGenerator extends AMazeGenerator {
                 wallC = currC+1;}
             else{
                 wallC = currC-1;}}
-        myMaze.mazeContent[wallR][wallC]= 0; //change wall position to 0
+        myMaze.mazeContent[wallR][wallC]= 0; //change wall position to 0 (break wall)
         changeStatus(wallR,wallC, VisitedCells); //change wall position to 1 (mark as visited)
     }
 

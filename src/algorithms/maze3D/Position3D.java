@@ -1,9 +1,5 @@
 package algorithms.maze3D;
 
-import algorithms.mazeGenerators.Position;
-
-import java.util.Objects;
-
 /**
  * this class will represent a position in the 3D maze,
  * this position have row, column and depth indexes

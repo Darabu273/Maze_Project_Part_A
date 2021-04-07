@@ -9,7 +9,9 @@ public class MyMazeGenerator extends AMazeGenerator {
     private Random Ran = new Random();
 
     @Override
-    public Maze generate(int rows, int columns) {
+    public Maze generate(int rows, int columns) throws Exception{
+        if (rows < 2 || columns < 2)
+            throw new Exception("Invalid inputs Maze most be at least 2x2");
         Maze myMaze = new Maze(rows, columns); //create an empty maze
         for (int r = 0; r <rows ; r++) { //init to 1 all the cells
             for (int c = 0; c <columns ; c++) {
@@ -71,7 +73,7 @@ public class MyMazeGenerator extends AMazeGenerator {
     }
 
     //find all the unvisited neighbors of the current position
-    private ArrayList<Position> findNeighbors(Position current, Maze myMaze,boolean [][]VisitedCells) {
+    private ArrayList<Position> findNeighbors(Position current, Maze myMaze,boolean [][]VisitedCells) throws Exception {
         //for each neighbor, add him into the neighbors array, if it's on the grid (maze), if it's not a corner, not the current position itself, and it's unvisited
         ArrayList<Position> neighbors = new ArrayList<>();
         for (int x = current.getRowIndex()-2; x < current.getRowIndex()+3; x=x+2) {

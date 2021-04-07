@@ -12,6 +12,6 @@ public interface ISearchingAlgorithm {
     public String getName();
 
     //Solve the problem, return the Solution
-    public Solution solve(ISearchable problem);
+    public Solution solve(ISearchable problem) throws Exception;
 
 }

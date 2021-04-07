@@ -34,7 +34,9 @@ public abstract class AState {
 
     public AState getPrevState() { return prevState;}
 
-    public void setPrevState(AState father) {
+    public void setPrevState(AState father) throws Exception {
+        if (father == null)
+            throw new Exception("Invalid null input - Astate parameter");
         this.prevState = father;
     }
 

@@ -36,13 +36,17 @@ public class Maze {
     public Position getStartPosition() {
         return start;}
 
-    public void setStartPosition(Position start) {
+    public void setStartPosition(Position start) throws Exception{
+        if (start == null)
+            throw new Exception("have to get parameter not null ");
         this.start = start;}
 
     public Position getGoalPosition() {
         return end;}
 
-    public void setGoalPosition(Position end) {
+    public void setGoalPosition(Position end) throws Exception{
+        if (end == null)
+            throw new Exception("have to get parameter not null ");
         this.end = end;}
 
     public void print() {

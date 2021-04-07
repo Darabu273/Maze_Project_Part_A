@@ -9,9 +9,11 @@ package algorithms.maze3D;
  */
 public abstract class AMaze3DGenerator implements IMazeGenerator3D {
 
-    public abstract Maze3D generate(int depth, int row, int column); //create Maze instance
+    public abstract Maze3D generate(int depth, int row, int column) throws Exception; //create Maze instance
 
-    public long measureAlgorithmTimeMillis(int depth, int row, int column){
+    public long measureAlgorithmTimeMillis(int depth, int row, int column) throws Exception {
+        if ((row < 2) || (column < 2 )|| (depth < 2) ){
+            throw new Exception("Invalid inputs Maze most be at least 2x2x2");}
         long s_time = System.currentTimeMillis();
         generate(depth ,row , column);
         long e_time =System.currentTimeMillis();

@@ -39,11 +39,14 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         public abstract AState removeFromStruct(Object struct);
 
         //add cost for the given neighbor Astate- (implement only for the Best algorithm, using for polymorphism)
-        public abstract void addCost(AState curr, AState neighbor);
+        public abstract void addCost(AState curr, AState neighbor) throws Exception;
 
         //create the path of the solution, return the final Solution
-        public Solution CreateSolution(boolean foundSolution, AState curr,ISearchable problem){
-                if(!foundSolution || curr == null){return null;}
+        public Solution CreateSolution(boolean foundSolution, AState curr,ISearchable problem) throws Exception {
+                if(!foundSolution ){
+                        throw new Exception("There is no solution for this problem"); }
+                if(curr == null || problem == null ){
+                        throw new Exception("Invalid parameter - will be the current Astate or the problem(ISearchable) input"); }
                 //return the solution path which has been found - reverse the path of the problem
                 ArrayList<AState> path = new ArrayList<AState>();
                 while(!curr.equals(problem.getStartState())){
@@ -59,7 +62,9 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         //Solve the problem, create the Solution by using CreateSolution function
         //this function is generic function , using a specific struct for each instance of ISearchingAlgorithm
         //solving the problem by using helper function, with no code-reuse at all
-        public Solution solve(ISearchable problem){
+        public Solution solve(ISearchable problem) throws Exception {
+                 if (problem == null)
+                         throw new Exception("Invalid null input - problem(ISearchable) input ");
                 AState start = problem.getStartState();
                 AState end = problem.getGoalState();
                 //HashSet will saved visited AStates (we have seen those states while solving this problem)
@@ -68,7 +73,7 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
                 hsVisited.add(start);
                 InsertStruct(struct,start);
                 AState curr = null;
-                boolean foundSolution = false; //will be true if we have found a solution
+                boolean foundSolution = false; //will be true if we have found a solution //todo: add except
                 while (!IsEmptyStruct(struct))
                 {
                         // curr = the top Astate of the stack
@@ -96,7 +101,6 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
                 Solution sol = CreateSolution(foundSolution,curr,problem);
                 return sol;
         }
-
 
 }
 

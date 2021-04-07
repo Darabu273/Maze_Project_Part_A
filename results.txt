@@ -1,0 +1,20 @@
+Test started!
+TEST Passed: generating maze (5*5) using SimpleMazeGenerator
+TEST Passed: Applying BreadthFirstSearch on maze (5,5)
+Test finished!
+Test started!
+TEST Passed: generating maze (5*5) using SimpleMazeGenerator
+TEST Passed: Applying BestFirstSearch on maze (5,5)
+Test finished!
+Test started!
+TEST Passed: generating maze (5*5) using SimpleMazeGenerator
+TEST Passed: Applying BestFirstSearch on maze (5,5)
+Test finished!
+Test started!
+TEST Passed: generating maze (5*5) using SimpleMazeGenerator
+TEST Passed: Applying DepthFirstSearch on maze (5,5)
+Test finished!
+Test started!
+TEST Passed: generating maze (5*5) using SimpleMazeGenerator
+TEST Passed: Applying BreadthFirstSearch on maze (5,5)
+Test finished!

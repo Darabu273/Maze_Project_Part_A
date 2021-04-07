@@ -7,8 +7,6 @@ import algorithms.maze3D.SearchableMaze3D;
 import algorithms.mazeGenerators.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class BestFirstSearchTest {

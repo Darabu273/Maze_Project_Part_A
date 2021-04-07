@@ -3,6 +3,7 @@ package algorithms.search;
 import algorithms.maze3D.IMazeGenerator3D;
 import algorithms.maze3D.Maze3D;
 import algorithms.maze3D.MyMaze3DGenerator;
+import algorithms.maze3D.SearchableMaze3D;
 import algorithms.mazeGenerators.*;
 import org.junit.jupiter.api.Test;
 
@@ -61,6 +62,13 @@ class BestFirstSearchTest {
         best.solve(searchableMazeEmpty);
         long e_time_2 =System.currentTimeMillis();
         assertTrue(e_time_2 - s_time_2 < 60000);
+
+        long s_time_3 = System.currentTimeMillis();
+        Maze3D d3D = mazeGenerator3D.generate(100,100, 100);
+        SearchableMaze3D searchableMaze3D = new SearchableMaze3D(d3D);
+        best.solve(searchableMaze3D);
+        long e_time_3 =System.currentTimeMillis();
+        assertTrue(e_time_3 - s_time_3 < 60000);
     }
 
     @Test

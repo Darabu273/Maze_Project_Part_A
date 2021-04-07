@@ -20,7 +20,7 @@ public class BestFirstSearch extends BreadthFirstSearch{
     @Override
     //add cost for the given neighbor Astate- (implement only for the Best algorithm, using for polymorphism)
     public void addCost(AState curr, AState neighbor) throws Exception{
-        if (curr == null || neighbor == null)
+        if ((curr == null) || (neighbor == null))
             throw new Exception("Invalid parameters will be current Astate or neighbor Astate");
         neighbor.setSumCost(curr.getSumCost() + neighbor.getCurrCost());
     }

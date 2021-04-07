@@ -8,10 +8,8 @@ import java.util.ArrayList;
 public class RunSearchOnMaze {
     public static void main(String[] args) throws Exception {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(10, 10);
+        Maze maze = mg.generate(30, 30);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
-        System.out.println(String.format("%s. %s","start:",maze.getStartPosition())); //todo
-        System.out.println(String.format("%s. %s","end:",maze.getGoalPosition())); //todo
         solveProblem(searchableMaze, new BreadthFirstSearch());
         solveProblem(searchableMaze, new DepthFirstSearch());
         solveProblem(searchableMaze, new BestFirstSearch());
@@ -25,7 +23,5 @@ public class RunSearchOnMaze {
         ArrayList<AState> solutionPath = solution.getSolutionPath();
         for (int i = 0; i < solutionPath.size(); i++) { System.out.println(String.format("%s. %s",i,solutionPath.get(i)));
         }
-        System.out.println(String.format("%s. %s","start:",solutionPath.get(0))); //todo
-        System.out.println(String.format("%s. %s","end:",solutionPath.get(solutionPath.size()-1))); //todo
     }
 }

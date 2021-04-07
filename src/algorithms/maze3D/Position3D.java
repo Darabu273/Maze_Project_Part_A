@@ -11,7 +11,9 @@ public class Position3D {
     private int my_depth;
 
     //constructor
-    public Position3D(int my_depth,int my_row, int my_col) {
+    public Position3D(int my_depth,int my_row, int my_col) throws Exception{
+        if (my_row < 0 || my_col < 0 || my_depth < 0 )
+            throw new Exception("Invalid inputs 3D-Maze position can not be negative ");
         this.my_row = my_row;
         this.my_col = my_col;
         this.my_depth = my_depth;
@@ -23,7 +25,7 @@ public class Position3D {
     public int getColumnIndex(){return my_col;}
 
     //compare two Position3D
-    public boolean equals(Position3D other) {
+    public boolean equals(Position3D other){
         return (this.my_row == other.my_row) && (this.my_col == other.my_col) && (this.my_depth == other.my_depth);
     }
 

@@ -7,9 +7,11 @@ package algorithms.mazeGenerators;
  */
 public abstract class AMazeGenerator implements IMazeGenerator {
 
-    public abstract Maze generate(int rows, int columns); //create Maze instance
+    public abstract Maze generate(int rows, int columns) throws Exception; //create Maze instance
 
-    public long measureAlgorithmTimeMillis(int Rows, int Columns){
+    public long measureAlgorithmTimeMillis(int Rows, int Columns) throws Exception {
+        if (Rows < 2 || Columns < 2 )
+            throw new Exception("Invalid inputs Maze most be at least 2x2");
         long s_time = System.currentTimeMillis();
         generate(Rows, Columns);
         long e_time =System.currentTimeMillis();

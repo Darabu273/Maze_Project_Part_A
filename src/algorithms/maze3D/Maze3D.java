@@ -38,11 +38,15 @@ public class Maze3D {
         return end;
     }
 
-    public void setStartPosition(Position3D start) {
+    public void setStartPosition(Position3D start) throws Exception {
+        if (start == null)
+            throw new Exception("have to get parameter not null ");
         this.start = start;
     }
 
-    public void setGoalPosition(Position3D end) {
+    public void setGoalPosition(Position3D end) throws Exception{
+        if (end == null)
+            throw new Exception("have to get parameter not null ");
         this.end = end;
     }
 

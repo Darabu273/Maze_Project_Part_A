@@ -10,13 +10,15 @@ public class Position {
     private int my_row;
     private int my_col;
 
-    public Position(int row, int column) {
+    public Position(int row, int column) throws Exception{
+            if (row < 0 || column < 0 )
+                throw new Exception("Invalid inputs Maze position can not be negative ");
         my_row=row;
         my_col=column;
     }
 
     //compare two Position objects
-    public boolean equals(Position other) {
+    public boolean equals(Position other){
         return (this.my_row == other.my_row) && (this.my_col == other.my_col);
     }
 

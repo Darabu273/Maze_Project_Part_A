@@ -7,11 +7,11 @@ import algorithms.maze3D.Position3D;
 
 public class RunMaze3DGenerator {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         testMaze3DGenerator(new MyMaze3DGenerator());
     }
 
-    private static void testMaze3DGenerator(IMazeGenerator3D maze3DGenerator) {
+    private static void testMaze3DGenerator(IMazeGenerator3D maze3DGenerator) throws Exception {
         // prints the time it takes the algorithm to run
         System.out.println(String.format("Maze generation time(ms): %s", maze3DGenerator.measureAlgorithmTimeMillis(100,100, 100)));
         // generate another maze

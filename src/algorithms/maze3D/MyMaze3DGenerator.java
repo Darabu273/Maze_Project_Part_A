@@ -9,12 +9,14 @@ import java.util.Stack;
  * this class generate the 3D maze
  * it contains stack
  */
-public class MyMaze3DGenerator extends AMaze3DGenerator{
+public class MyMaze3DGenerator extends AMaze3DGenerator {
     private Stack<Position3D> stack = new Stack<>();
     private Random Ran = new Random();
 
     //generate the Maze itself
-    public Maze3D generate(int depth, int row, int column) {
+    public Maze3D generate(int depth, int row, int column) throws Exception {
+        if (row < 2 || column < 2 || depth < 2)
+            throw new Exception("Invalid inputs Maze most be at least 2x2x2");
         Maze3D myMaze = new Maze3D(depth,row, column); //create an empty maze
         for (int r = 0; r <row ; r++) { //init to 1 all the cells
             for (int c = 0; c <column ; c++) {
@@ -84,7 +86,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
     }
 
     //find all the unvisited neighbors of the current position
-    private ArrayList<Position3D> findNeighbors(Position3D current, Maze3D myMaze,boolean [][][]VisitedCells) {
+    private ArrayList<Position3D> findNeighbors(Position3D current, Maze3D myMaze,boolean [][][]VisitedCells) throws Exception {
         ArrayList<Position3D> neighbors = new ArrayList<>();
         //for each neighbor, add him into the neighbors array, if it's on the grid (maze), if it's not a corner, not the current position itself, and it's unvisited
         //iterate over all neighbors in the same depth

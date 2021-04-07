@@ -15,26 +15,30 @@ public class SearchableMaze3D implements ISearchable {
     Maze3D myMaze;
 
     //constructor
-    public SearchableMaze3D(Maze3D maze) {
+    public SearchableMaze3D(Maze3D maze) throws Exception {
+        if (maze == null)
+            throw new Exception("Invalid null input");
         myMaze = maze;
     }
 
     //return the start position of the problem
-    public AState getStartState() {
+    public AState getStartState() throws Exception{
         Maze3DState startPos = new Maze3DState(myMaze.getStartPosition());
         return startPos;
     }
 
     @Override
     //return the goal position of the problem
-    public AState getGoalState() {
+    public AState getGoalState() throws Exception{
         Maze3DState endPos = new Maze3DState(myMaze.getGoalPosition());
         return endPos;
     }
 
     @Override
     //Return all maze progress options, from a given state position
-    public ArrayList<AState> getAllSuccessors(AState s) {
+    public ArrayList<AState> getAllSuccessors(AState s) throws Exception {
+        if (s == null)
+                throw new Exception("Invalid null input");
         ArrayList<AState> successors = new ArrayList<>();
         int depth = ((Maze3DState) s).position.getDepthIndex();
         int row = ((Maze3DState) s).position.getRowIndex();

@@ -34,7 +34,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
 
     @Override
     //add cost for the given neighbor Astate- (implement only for the Best algorithm, using for polymorphism)
-    public void addCost(AState curr, AState neighbor) {
+    public void addCost(AState curr, AState neighbor) throws Exception {
         //remain empty
     }
 

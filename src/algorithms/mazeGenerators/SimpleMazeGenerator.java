@@ -5,7 +5,9 @@ public class SimpleMazeGenerator extends AMazeGenerator{
 
     @Override
     //generate a simple maze
-    public Maze generate(int rows, int columns) {
+    public Maze generate(int rows, int columns) throws Exception{
+        if (rows < 2 || columns < 2 )
+            throw new Exception("Invalid inputs Maze most be at least 2x2");
         Maze simpleMaze = new Maze(rows, columns); //create an empty maze
         //add randomly 0 and 1 to all the unchanged cells (remain 2)
         Random Ran = new Random();
@@ -37,7 +39,7 @@ public class SimpleMazeGenerator extends AMazeGenerator{
     }
 
     //this function will choose random position in the maze
-    public Position choosePosition(int rows, int columns) {
+    public Position choosePosition(int rows, int columns) throws Exception {
         Random Ran = new Random();
         int randomRow = Ran.nextInt((rows)); //select random row number
         int randomCol;

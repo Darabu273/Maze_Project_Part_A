@@ -13,13 +13,15 @@ public class Maze3DState extends AState {
     Position3D position;
 
     //constructor
-    public Maze3DState(Position3D position) {
+    public Maze3DState(Position3D position) throws Exception{
+        if (position == null)
+            throw new Exception("have to get parameter not null ");
         this.position = position;
     }
 
     @Override
     //compare between two Maze3DState
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj){
         boolean ans =this.position.equals(((Maze3DState)obj).position);
         return ans;
     }

@@ -76,8 +76,12 @@ public class Maze3D {
                 }
                 System.out.println("}");
             }
-            if (i != depths-1)
-                System.out.println("--------------------");
+            if (i != depths-1){
+                for (int j = 0; j < columns; j++) {
+                    System.out.print("--");
+                }
+                System.out.println("--");}
+
         }
         System.out.println("}");
     }

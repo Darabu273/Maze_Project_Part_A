@@ -91,6 +91,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         int neiC = neighbor.getColumnIndex();
         int wallR;
         int wallC;
+        //check the relative position of the neighbor to the current, and find the wall (position) that we need to break
         if(currR < neiR){
             wallR = currR+1;
             wallC = currC;}
@@ -106,14 +107,18 @@ public class MyMazeGenerator extends AMazeGenerator {
         myMaze.mazeContent[wallR][wallC]= 0; //change wall position to 0
         changeStatus(wallR,wallC, VisitedCells); //change wall position to 1 (mark as visited)
     }
+
+    //check if this position is on the grid of the maze
     private Boolean pointOnGrid(int x, int y, Maze myMaze) {
         return x >= 0 && y >= 0 && y < myMaze.Columns && x < myMaze.Rows;
     }
 
+    //check that this given position is not a corner (of the current position)
     private Boolean pointNotCorner(Position cell, int x, int y) {
         return (y == cell.getColumnIndex() || x == cell.getRowIndex());
     }
 
+    //check that this given position is not a the same as the current position
     private Boolean pointNotMyCell(Position cell, int x, int y) {
         return !(y == cell.getColumnIndex() && x == cell.getRowIndex());
     }

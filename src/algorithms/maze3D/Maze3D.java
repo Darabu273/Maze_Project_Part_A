@@ -23,6 +23,13 @@ public class Maze3D {
 
     public int getDepths() { return depths; }
 
+    public Position3D getStartPosition(){
+        return start;
+    }
+    public Position3D getGoalPosition(){
+        return end;
+    }
+
     public void setStartPosition(Position3D start) {
         this.start = start;
     }
@@ -31,14 +38,9 @@ public class Maze3D {
         this.end = end;
     }
 
+    //return the Map (the maze)
     public int[][][] getMap(){
         return maze;
-    }
-    public Position3D getStartPosition(){
-        return start;
-    }
-    public Position3D getGoalPosition(){
-        return end;
     }
 
     public void print() {

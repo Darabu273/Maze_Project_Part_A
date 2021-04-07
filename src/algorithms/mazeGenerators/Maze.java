@@ -2,6 +2,12 @@ package algorithms.mazeGenerators;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
+
+/**
+ * this class will represent a maze of 2D
+ * this class have rows, columns sizes, start position and goal position (the target)
+ * moreover, it have a  mazeContent data member, which contains the maze itself ([][] int array)
+ */
 public class Maze {
     int Rows;
     int Columns;

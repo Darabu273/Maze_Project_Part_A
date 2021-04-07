@@ -3,8 +3,8 @@ import algorithms.mazeGenerators.*;
 
 public class RunMazeGenerator {
     public static void main(String[] args) {
-        //testMazeGenerator(new EmptyMazeGenerator());
-        //testMazeGenerator(new SimpleMazeGenerator());
+        testMazeGenerator(new EmptyMazeGenerator());
+        testMazeGenerator(new SimpleMazeGenerator());
         testMazeGenerator(new MyMazeGenerator());
     }
     private static void testMazeGenerator(IMazeGenerator mazeGenerator) {
@@ -13,7 +13,7 @@ public class RunMazeGenerator {
         // generate another maze
         Maze maze = mazeGenerator.generate(15/*rows*/, 15/*columns*/);
         // prints the maze
-        //maze.print();
+        maze.print();
         // get the maze entrance
         Position startPosition = maze.getStartPosition();
         // print the start position

@@ -6,10 +6,16 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * this class extends the AMaze3DGenerator abstract class
+ * this class generate the 3D maze
+ * it contains stack
+ */
 public class MyMaze3DGenerator extends AMaze3DGenerator{
     private Stack<Position3D> stack = new Stack<>();
     private Random Ran = new Random();
 
+    //generate the Maze itself
     public Maze3D generate(int depth, int row, int column){
         Maze3D myMaze = new Maze3D(depth,row, column); //create an empty maze
         for (int r = 0; r <row ; r++) { //init to 1 all the cells
@@ -37,12 +43,13 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         stack.push(StartPos);
         while (!stack.empty()) {
             Position3D curr = stack.pop();
-            ArrayList<Position3D> neighbors = findNeighbors(curr, myMaze, VisitedCells);
-            if (neighbors.size() > 0) {
-                stack.push(curr);
-                myMaze.maze[curr.getDepthIndex()][curr.getRowIndex()][curr.getColumnIndex()] = 0;
-                Position3D Neighbor = ChooseNeighbor(neighbors); //chosen randomly neighbor
-                changeStatus(Neighbor.getDepthIndex(),Neighbor.getRowIndex(),Neighbor.getColumnIndex(), VisitedCells);
+            //check if the current cell have any neighbors which have not been visited, and find them all
+            ArrayList<Position3D> neighbors = findNeighbors(curr, myMaze, VisitedCells); //find all options of moving forward
+            if (neighbors.size() > 0) { //iterate over all neighbors
+                stack.push(curr); //push curr into the stack
+                myMaze.maze[curr.getDepthIndex()][curr.getRowIndex()][curr.getColumnIndex()] = 0; //change it's place to 1
+                Position3D Neighbor = ChooseNeighbor(neighbors); //choose one unvisited random neighbor
+                changeStatus(Neighbor.getDepthIndex(),Neighbor.getRowIndex(),Neighbor.getColumnIndex(), VisitedCells); //mark him as visited neighbor
                 removeWall(curr, Neighbor, VisitedCells, myMaze); //remove the wall & mark as visited
                 stack.push(Neighbor);
             }
@@ -78,9 +85,11 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         return Neighbor;
     }
 
+    //find all the unvisited neighbors of the current position
     private ArrayList<Position3D> findNeighbors(Position3D current, Maze3D myMaze,boolean [][][]VisitedCells) {
         ArrayList<Position3D> neighbors = new ArrayList<>();
-
+        //for each neighbor, add him into the neighbors array, if it's on the grid (maze), if it's not a corner, not the current position itself, and it's unvisited
+        //iterate over all neighbors in the same depth
         for (int x = current.getRowIndex()-2; x < current.getRowIndex()+3; x=x+2) {
             for (int y = current.getColumnIndex()-2; y < current.getColumnIndex()+3 ; y=y+2) {
                 if (pointOnGrid(current.getDepthIndex(),x, y, myMaze) && pointNotCorner(current ,current.getDepthIndex(), x, y)
@@ -89,6 +98,8 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
                 }
             }
         }
+        //check the options from the other depths
+
         if (pointOnGrid(current.getDepthIndex()+2,current.getRowIndex(), current.getColumnIndex(), myMaze) && !(Visited(current.getDepthIndex()+2,current.getRowIndex(),current.getColumnIndex(),VisitedCells))){
             neighbors.add(new Position3D(current.getDepthIndex()+2,current.getRowIndex(), current.getColumnIndex()));
         }
@@ -109,6 +120,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         int wallR;
         int wallC;
         int wallD;
+        //check the relative position of the neighbor to the current, and find the wall (position) that we need to break
         if(currR < neiR){
             wallD = currD;
             wallR = currR+1;
@@ -136,15 +148,19 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         myMaze.maze[wallD][wallR][wallC]= 0; //change wall position to 0
         changeStatus(wallD,wallR,wallC, VisitedCells); //change wall position to 1 (mark as visited)
     }
+
+    //check if this position is on the grid of the maze
     private Boolean pointOnGrid(int d,int r, int c, Maze3D myMaze) {
         return (d >= 0 && r >= 0 && c >= 0) && (d<myMaze.depths && c < myMaze.columns && r < myMaze.rows);
     }
 
+    //check that this given position is not a corner (of the current position)
     private Boolean pointNotCorner(Position3D cell,int d, int r, int c) {
 
-        return d == cell.getDepthIndex() && (r == cell.getColumnIndex() || c == cell.getRowIndex());
+        return d == cell.getDepthIndex() && (r == cell.getRowIndex() || c == cell.getColumnIndex());
     }
 
+    //check that this given position is not a the same as the current position
     private Boolean pointNotMyCell(Position3D cell,int d, int r, int c) {
         return !(d == cell.getDepthIndex() && c == cell.getColumnIndex() && r == cell.getRowIndex());
     }

@@ -24,7 +24,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
     public boolean IsEmptyStruct(Object stack) {
         return ((Stack<AState>)stack).empty();
     }
-
     @Override
     //remove element from the stack (implement the abstract method of ASearchingAlgorithm)
     public AState removeFromStruct(Object stack) {

@@ -7,6 +7,8 @@ import algorithms.maze3D.SearchableMaze3D;
 import algorithms.mazeGenerators.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BestFirstSearchTest {
@@ -39,21 +41,21 @@ class BestFirstSearchTest {
     }
 
     @Test
-    public void testSolutionTime() throws Exception {
+    public void testSolutionTime2D() throws Exception {
         //check the time of creation of the maze & solution time with the searching Algorithm BEST and if it less then 60 seconds
         long s_time_0 = System.currentTimeMillis();
         Maze mazeMy = mazeGenerator_My.generate(1000, 1000);
         SearchableMaze searchableMazeMy = new SearchableMaze(mazeMy);
         best.solve(searchableMazeMy);
         long e_time_0 =System.currentTimeMillis();
-        assertTrue(e_time_0-s_time_0 < 60000);
+        assertTrue((e_time_0-s_time_0) < 60000);
 
         long s_time_1 = System.currentTimeMillis();
         Maze mazeS = mazeGenerator_Simple.generate(1000, 1000);
         SearchableMaze searchableMazeSimple = new SearchableMaze(mazeS);
         best.solve(searchableMazeSimple);
         long e_time_1 =System.currentTimeMillis();
-        assertTrue(e_time_1 - s_time_1 < 60000);
+        assertTrue((e_time_1 - s_time_1) < 60000);
 
 
         long s_time_2 = System.currentTimeMillis();
@@ -61,18 +63,110 @@ class BestFirstSearchTest {
         SearchableMaze searchableMazeEmpty = new SearchableMaze(mazeE);
         best.solve(searchableMazeEmpty);
         long e_time_2 =System.currentTimeMillis();
-        assertTrue(e_time_2 - s_time_2 < 60000);
-
-        long s_time_3 = System.currentTimeMillis();
-        Maze3D d3D = mazeGenerator3D.generate(100,100, 100);
-        SearchableMaze3D searchableMaze3D = new SearchableMaze3D(d3D);
-        best.solve(searchableMaze3D);
-        long e_time_3 =System.currentTimeMillis();
-        assertTrue(e_time_3 - s_time_3 < 60000);
+        assertTrue((e_time_2 - s_time_2) < 60000);
     }
 
     @Test
-    void addCost() {
+    public void testSolutionTime3D() throws Exception {
+        //check the time of creation of the maze & solution time with the searching Algorithm BEST and if it less then 60 seconds
+        IMazeGenerator3D mg = new MyMaze3DGenerator();
+        Maze3D maze = mg.generate(100,100,100);
+        SearchableMaze3D searchableMaze = new SearchableMaze3D(maze);
+        long s_time = System.currentTimeMillis();
+        BestFirstSearch bs = new BestFirstSearch();
+        bs.solve(searchableMaze);
+        long e_time =System.currentTimeMillis();
+        assertTrue((e_time - s_time) < 60000);
+    }
+
+    @Test
+    //make sure Exception have been thrown
+    public void addCostTest() throws Exception {
+        boolean not_Except = false;
+        try {
+            best.addCost(null,null);
+        } catch (Exception expectedException) {
+            not_Except=true;
+        }
+        assertTrue(not_Except);
+
+    }
+
+    @Test
+    //make sure Exception have been thrown
+    public void CreateSolutionTest() throws Exception {
+        boolean not_Except = false;
+        try {
+            best.CreateSolution(true, null, null);
+
+        } catch (Exception expectedException) {
+            not_Except=true;
+        }
+        assertTrue(not_Except);
+    }
+
+    @Test
+    //make sure Exception have been thrown
+    public void SolutionTest() throws Exception {
+        boolean not_Except = false;
+        try {
+            best.solve(null);
+        } catch (Exception expectedException) {
+            not_Except=true;
+        }
+        assertTrue(not_Except);
+    }
+
+    @Test
+    //make sure Exception have been thrown
+    public void CreateSmall3DMazeTest() throws Exception {
+        boolean not_Except = false;
+        try {
+            mazeGenerator3D.generate(3,3,1);
+        } catch (Exception expectedException) {
+            not_Except=true;
+        }
+        assertTrue(not_Except);
+    }
+
+    @Test
+    //make sure Exception have been thrown
+    public void CreateSmall2DMazeTest() throws Exception {
+        boolean not_Except = false;
+        try {
+            mazeGenerator_My.generate(3,-1);
+        } catch (Exception expectedException) {
+            not_Except=true;
+        }
+        assertTrue(not_Except);
+    }
+
+    @Test
+    //make sure solution is right
+    public void CheckSolutionPosition3D() throws Exception {
+        Maze3D maze = mazeGenerator3D.generate(100,100,100);
+        SearchableMaze3D searchableMaze = new SearchableMaze3D(maze);
+        Solution solution = best.solve(searchableMaze);
+        AState start = solution.getSolutionPath().get(0);
+        AState end = solution.getSolutionPath().get(solution.getSolutionPath().size()-1);
+        AState originStart = searchableMaze.getStartState();
+        AState originGoal = searchableMaze.getGoalState();
+        assertTrue(start.equals(originStart));
+        assertTrue(end.equals(originGoal));
+    }
+
+    @Test
+    //make sure solution is right
+    public void CheckSolutionPosition2D() throws Exception {
+        Maze maze = mazeGenerator_My.generate(1000,1000);
+        SearchableMaze searchableMaze = new SearchableMaze(maze);
+        Solution solution = best.solve(searchableMaze);
+        AState start = solution.getSolutionPath().get(0);
+        AState end = solution.getSolutionPath().get(solution.getSolutionPath().size()-1);
+        AState originStart = searchableMaze.getStartState();
+        AState originGoal = searchableMaze.getGoalState();
+        assertTrue(start.equals(originStart));
+        assertTrue(end.equals(originGoal));
     }
 
 

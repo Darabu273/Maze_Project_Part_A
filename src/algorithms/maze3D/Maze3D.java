@@ -55,7 +55,34 @@ public class Maze3D {
         return maze;
     }
 
-    public void print() {
+    public void print(){
+        System.out.println("{");
+        for(int depth = 0; depth < maze.length; depth++){
+            for(int row = 0; row < maze[0].length; row++) {
+                System.out.print("{ ");
+                for (int col = 0; col < maze[0][0].length; col++) {
+                    if (depth == start.getDepthIndex() && row == start.getRowIndex() && col == start.getColumnIndex()) // if the position is the start - mark with S
+                        System.out.print("S ");
+                    else {
+                        if (depth == end.getDepthIndex() && row == end.getRowIndex() && col == end.getColumnIndex()) // if the position is the goal - mark with E
+                            System.out.print("E ");
+                        else
+                            System.out.print(maze[depth][row][col] + " ");
+                    }
+                }
+                System.out.println("}");
+            }
+            if(depth < maze.length - 1) {
+                System.out.print("---");
+                for (int i = 0; i < maze[0][0].length; i++)
+                    System.out.print("--");
+                System.out.println();
+            }
+        }
+        System.out.println("}");
+    }
+
+/*    public void print() {
         System.out.println("{");
         for (int i = 0; i < depths; i++) { //change all cells to 0/1
             for (int j = 0; j < rows; j++) {
@@ -84,5 +111,7 @@ public class Maze3D {
 
         }
         System.out.println("}");
-    }
+    }*/
+
+
 }

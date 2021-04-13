@@ -1,6 +1,6 @@
 package algorithms.search;
 
-import algorithms.maze3D.IMazeGenerator3D;
+import algorithms.maze3D.IMaze3DGenerator;
 import algorithms.maze3D.Maze3D;
 import algorithms.maze3D.MyMaze3DGenerator;
 import algorithms.maze3D.SearchableMaze3D;
@@ -14,7 +14,7 @@ class BestFirstSearchTest {
     IMazeGenerator mazeGenerator_Empty = new EmptyMazeGenerator();
     IMazeGenerator mazeGenerator_Simple = new SimpleMazeGenerator();
     IMazeGenerator mazeGenerator_My = new MyMazeGenerator();
-    IMazeGenerator3D mazeGenerator3D = new MyMaze3DGenerator();
+    IMaze3DGenerator mazeGenerator3D = new MyMaze3DGenerator();
 
 
     public void getName() throws Exception{
@@ -67,7 +67,7 @@ class BestFirstSearchTest {
     @Test
     public void testSolutionTime3D() throws Exception {
         //check the time of creation of the maze & solution time with the searching Algorithm BEST and if it less then 60 seconds
-        IMazeGenerator3D mg = new MyMaze3DGenerator();
+        IMaze3DGenerator mg = new MyMaze3DGenerator();
         Maze3D maze = mg.generate(100,100,100);
         SearchableMaze3D searchableMaze = new SearchableMaze3D(maze);
         long s_time = System.currentTimeMillis();

@@ -55,6 +55,7 @@ public class Maze3D {
         return maze;
     }
 
+    //given print function for 3D maze
     public void print(){
         System.out.println("{");
         for(int depth = 0; depth < maze.length; depth++){
@@ -81,37 +82,4 @@ public class Maze3D {
         }
         System.out.println("}");
     }
-
-/*    public void print() {
-        System.out.println("{");
-        for (int i = 0; i < depths; i++) { //change all cells to 0/1
-            for (int j = 0; j < rows; j++) {
-                {
-                    System.out.print("{");
-
-                    for (int k = 0; k <columns ; k++) {
-                        if(i==start.getDepthIndex() && j ==start.getRowIndex() && k==start.getColumnIndex()){
-                            System.out.print("S ");
-                        }
-                        else if(i==end.getDepthIndex() && j ==end.getRowIndex() && k==end.getColumnIndex()){
-                            System.out.print("E ");
-                        }
-                        else{
-                            System.out.print(maze[i][j][k] + " ");
-                        }
-                    }
-                }
-                System.out.println("}");
-            }
-            if (i != depths-1){
-                for (int j = 0; j < columns; j++) {
-                    System.out.print("--");
-                }
-                System.out.println("--");}
-
-        }
-        System.out.println("}");
-    }*/
-
-
 }

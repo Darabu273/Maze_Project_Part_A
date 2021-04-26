@@ -40,6 +40,7 @@ public class Maze {
         //the bytes array using 1-bytes for each value of the maze content cells (0/1)
         for(int i = 0; i < (mazeArr.length-24); i++) {
             intArr[i+6] = (int)mazeArr[24+i];
+
         }
         //update all data members with the correct values (coordinate to the bytes values)
         Rows = intArr[0];

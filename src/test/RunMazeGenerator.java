@@ -16,6 +16,7 @@ public class RunMazeGenerator {
         //maze.print();
         byte[] by = maze.toByteArray(); //todo delete
         Maze m = new Maze(by); //todo delete
+
         // get the maze entrance
         Position startPosition = maze.getStartPosition();
         // print the start position

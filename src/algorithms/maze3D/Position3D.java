@@ -10,6 +10,7 @@ public class Position3D {
     private int my_col;
     private int my_depth;
 
+
     //constructor
     public Position3D(int my_depth,int my_row, int my_col) throws Exception{
         if (my_row < 0 || my_col < 0 || my_depth < 0 )

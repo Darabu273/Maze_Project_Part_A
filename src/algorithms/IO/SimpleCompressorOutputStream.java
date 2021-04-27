@@ -17,6 +17,8 @@ public class SimpleCompressorOutputStream extends OutputStream {
     @Override
     public void write(byte[] b) throws IOException {
         //todo: check/change to array that contains one byte for content cell !
+        //todo: change for 2 bytes instead of four for meta data?
+
         byte[] bytes = new  byte[b.length];
         int i;
         for (i = 0; i < 24; i++) { //copy the values of - rows, columns, start position and goal position as is to new byte array.

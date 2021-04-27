@@ -28,7 +28,8 @@ public class Maze {
 
     //constructor - input = maze data (dimensions, content, start & goal position - uncompressed), build a new maze
     //our byte-array format: rows, columns, start position (x-row,y-column), goal position (x,y), maze content (row by row)
-    public Maze(byte[] mazeArr) throws Exception {
+    public Maze(byte[] mazeArr) throws Exception { //todo: exception for the size (less than 2*2)?
+        //todo: change for 2 bytes instead of four for meta data?
         //convert the given bytes array to int-array
         int intArr[] = new int[6+ (mazeArr.length-24)];
         int offset = 0;
@@ -105,6 +106,8 @@ public class Maze {
     //return byte array which represent the maze data (uncompressed info) - dimensions, content, start & goal position
     //our byte-array format: rows, columns, start position (x-row,y-column), goal position (x,y), maze content (row by row)
     public byte[] toByteArray() throws Exception{
+        //todo: change for 2 bytes instead of four for meta data?
+
         int[] MazeValues = new int[6]; //6 ints for rows,columns, start&goal position x&y + this.Columns*this.Rows for maze content
         MazeValues[0]= Rows;
         MazeValues[1] = Columns;

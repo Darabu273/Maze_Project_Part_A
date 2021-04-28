@@ -1,6 +1,10 @@
 package algorithms.IO;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class SimpleCompressorOutputStream extends OutputStream {
     OutputStream out;
@@ -23,12 +27,14 @@ public class SimpleCompressorOutputStream extends OutputStream {
             bytes[i] =(b[i]);
         }
         out.write(bytes,0,24);
-        out.flush();
-        /*BufferedReader br = new BufferedReader(new FileReader("savedMaze.maze"));
-        String line;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-        }*/
+        try (InputStream in = new FileInputStream("savedMaze.maze")) //todo
+        {
+            String contents = Arrays.toString(in.readAllBytes());
+            System.out.println(contents);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }//todo
         int counter=0;
         int prev = 0; // prev position = we will start with zero
         for (int j = 24; j <b.length ; j++) { //will do different manipulate of write
@@ -54,12 +60,21 @@ public class SimpleCompressorOutputStream extends OutputStream {
                     bytes[i] =(byte)counter;
                     out.write(bytes,i,1);}// write to out the counter for this byte
                 i++;
-                counter = 0;
+                counter = 1;
+                try (InputStream in = new FileInputStream("savedMaze.maze")) //todo
+                {
+                    String contents = Arrays.toString(in.readAllBytes());
+                    System.out.println(contents);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }//todo
             }
 
         }
-
+        if(counter>0){
+            bytes[i] =(byte)counter;
+            out.write(bytes,i,1);}// write to out the counter for this byte
+        }
     }
 
-
-}

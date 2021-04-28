@@ -26,10 +26,15 @@ public class SimpleDecompressorInputStream extends InputStream {
         }
         for (int j = 24; j < contents.length; j++) { // open the compressor of the content maze
             currentByte = 1 - currentByte; // We will reverse the current char 0/1
-            for (int k = 0; k < contents[j]; k++) {
-                byteArray[i] =(byte) currentByte;
+            int counter = contents[j];
+            if (contents[j] < 0) {//the meaning that the counter in contents[j] between 128-255
+                counter = counter + 256;
+            }
+            for (int k = 0; k < counter; k++) {
+                byteArray[i] = (byte) currentByte;
                 i++;
             }
+
         }
         //System.out.println(Arrays.toString(byteArray));
         return 0;

@@ -13,8 +13,8 @@ public class RunCompressDecompressMaze {
     public static void main(String[] args) throws Exception {
         String mazeFileName = "savedMaze.maze";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
-        Maze maze = mazeGenerator.generate(1000,1000); //Generate new maze
-        //maze.print();
+        Maze maze = mazeGenerator.generate(10,10); //Generate new maze
+        maze.print();
         try {
             // save maze to a file
             OutputStream out = new SimpleCompressorOutputStream(new FileOutputStream(mazeFileName));
@@ -36,7 +36,23 @@ public class RunCompressDecompressMaze {
         }
         Maze loadedMaze = new Maze(savedMazeBytes);
         boolean areMazesEquals =Arrays.equals(loadedMaze.toByteArray(),maze.toByteArray());
-        System.out.println(String.format("Mazes equal: %s",areMazesEquals));
         //maze should be equal to loadedMaze*/
     }
 }
+
+/*        Maze test = new Maze(maze.toByteArray()); //todo
+        boolean check =Arrays.equals(test.toByteArray(),maze.toByteArray()); //todo
+        System.out.println("first check"); //todo
+        System.out.println(String.format("Mazes equal: %s",check)); //todo
+        System.out.println("end check");//todo*/
+
+
+/*        //todo
+        byte[] newM = loadedMaze.toByteArray();
+        byte[] oldM = maze.toByteArray();
+        for (int i = 0; i < newM.length; i++) {
+            if(newM[i] != oldM[i]){
+                System.out.println("index: "+ i +" new maze: " +newM[i] +" old maze: "+ oldM[i]);
+            }
+        }
+        //todo*/

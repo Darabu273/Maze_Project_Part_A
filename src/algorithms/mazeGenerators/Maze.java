@@ -1,8 +1,10 @@
 package algorithms.mazeGenerators;
 
+import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * this class will represent a maze of 2D
@@ -28,7 +30,7 @@ public class Maze {
 
     //constructor - input = maze data (dimensions, content, start & goal position - uncompressed), build a new maze
     //our byte-array format: rows, columns, start position (x-row,y-column), goal position (x,y), maze content (row by row)
-    public Maze(byte[] mazeArr) throws Exception { //todo: exception for the size (less than 2*2)?
+    public Maze(byte[] mazeArr) throws Exception {
         //todo: change for 2 bytes instead of four for meta data?
         //convert the given bytes array to int-array
         int intArr[] = new int[6+ (mazeArr.length-24)];
@@ -46,6 +48,8 @@ public class Maze {
         //update all data members with the correct values (coordinate to the bytes values)
         Rows = intArr[0];
         Columns= intArr[1];
+        if (Rows < 2 || Columns < 2 )
+            throw new Exception("Invalid inputs Maze most be at least 2x2");
         start = new Position(intArr[2], intArr[3]);
         end = new Position(intArr[4], intArr[5]);
         mazeContent = new int[Rows][Columns];
@@ -107,7 +111,6 @@ public class Maze {
     //our byte-array format: rows, columns, start position (x-row,y-column), goal position (x,y), maze content (row by row)
     public byte[] toByteArray() throws Exception{
         //todo: change for 2 bytes instead of four for meta data?
-
         int[] MazeValues = new int[6]; //6 ints for rows,columns, start&goal position x&y + this.Columns*this.Rows for maze content
         MazeValues[0]= Rows;
         MazeValues[1] = Columns;
@@ -123,7 +126,7 @@ public class Maze {
         byte[] array = byteBuffer.array(); //the return array
 
         //add meta data in bytes int into the final-result array
-        byte[] MazeInBytes = new byte[24+ (this.Columns*this.Rows)];
+        byte[] MazeInBytes = new byte[24+ (this.Columns*this.Rows)];  //todo : can be better (2 bytes for meta & 1 byte for 8 bits)
         for (int i = 0; i < 24; i++) {
             MazeInBytes[i]= array[i];
         }

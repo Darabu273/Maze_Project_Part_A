@@ -9,16 +9,18 @@ public class SimpleDecompressorInputStream extends InputStream {
     InputStream in;
 
     public SimpleDecompressorInputStream(InputStream fileInputStream) {
+        //todo: change for 2 bytes instead of four for meta data?
         this.in = fileInputStream;
     }
 
     @Override
-    public int read() throws IOException {
+    public int read() {
         return 0;
     }
 
     public int read(byte[] byteArray) throws IOException {//read the meta data of the maze and remove the data from the compression
         byte[] contents = in.readAllBytes();
+        System.out.println(contents.length-24); //check the compressor
         int i;
         int currentByte = 1;
         for (i = 0; i < 24; i++) { // copy all the 24 chars (meta data) to new byte array as is.
@@ -36,7 +38,7 @@ public class SimpleDecompressorInputStream extends InputStream {
             }
 
         }
-        //System.out.println(Arrays.toString(byteArray));
+        //System.out.println(i);
         return 0;
     }
 

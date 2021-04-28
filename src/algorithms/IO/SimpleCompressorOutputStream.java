@@ -18,7 +18,6 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
     @Override
     public void write(byte[] b) throws IOException {
-        //todo: check/change to array that contains one byte for content cell !
         //todo: change for 2 bytes instead of four for meta data?
 
         byte[] bytes = new  byte[b.length];
@@ -27,15 +26,6 @@ public class SimpleCompressorOutputStream extends OutputStream {
             bytes[i] =(b[i]);
         }
         out.write(bytes,0,24); //write the meta data of the maze to the file
-/*        try (InputStream in = new FileInputStream("savedMaze.maze")) //todo
-        {
-            String contents = Arrays.toString(in.readAllBytes());
-            System.out.println(contents);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }//todo*/
-
         int counter=0; //count how many chars of the current checked char we have seen
         int prev = 0; // prev position = we will start the counting with zero-char
         for (int j = 24; j <b.length ; j++) { //will do different manipulate of write
@@ -45,7 +35,7 @@ public class SimpleCompressorOutputStream extends OutputStream {
             else{
                 int target = counter;
                 prev = 1-prev;//will change to 1 if prev was 0 and the same action to the opposite option.
-                if (counter > 255) // when counter bigger than 255 we will separate the num of the current byte with zero between the values.
+                if(counter > 255) // when counter bigger than 255 we will separate the num of the current byte with zero between the values.
                 {
                    while (target>255){
                        bytes[i] = (byte)255;
@@ -57,35 +47,33 @@ public class SimpleCompressorOutputStream extends OutputStream {
                        i++;
                    }
                     bytes[i] =(byte)target; //remainder
-                }else{ // if the counter less then 255 we can represent in one byte.
+                    out.write(bytes,i,1);// write to out the counter for this byte
+                }
+                else{ // if the counter less then 255 we can represent in one byte.
                     bytes[i] =(byte)counter;
                     out.write(bytes,i,1);}// write to out the counter for this byte
                 i++;
                 counter = 1;
-/*                try (InputStream in = new FileInputStream("savedMaze.maze")) //todo
-                {
-                    String contents = Arrays.toString(in.readAllBytes());
-                    System.out.println(contents);
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }//todo*/
+
             }
-
         }
-        bytes[i] =(byte)counter;
-        out.write(bytes,i,1);// write to out the counter for this byte
-/*       try (InputStream in = new FileInputStream("savedMaze.maze")) //todo
+
+        //add the last counter-chars to the array
+        int targetEnd = counter;
+        if(counter > 255) // when counter bigger than 255 we will separate the num of the current byte with zero between the values.
         {
-            String contents = Arrays.toString(in.readAllBytes());
-            System.out.println(contents);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }//todo*/
+            while (targetEnd>255){
+                bytes[i] = (byte)255;
+                out.write(bytes,i,1); // write to out the counter for this byte
+                targetEnd= targetEnd-255;
+                i++;
+                bytes[i] = 0; //separate the values - because the maximum value can be 255.
+                out.write(bytes,i,1);// write to out the counter for this byte
+                i++;
+        }}
+        bytes[i] =(byte)targetEnd; //remainder
+        out.write(bytes,i,1);// write to out the counter for this byte
     }
-
-
-
 }
+
 

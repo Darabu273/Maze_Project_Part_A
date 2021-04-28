@@ -2,11 +2,14 @@ package test;
 //import IO.MyCompressorOutputStream;
 //import IO.MyDecompressorInputStream;
 import algorithms.IO.SimpleCompressorOutputStream;
+import algorithms.IO.SimpleDecompressorInputStream;
 import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import java.io.*;
-    public class RunCompressDecompressMaze {
+import java.util.Arrays;
+
+public class RunCompressDecompressMaze {
     public static void main(String[] args) throws Exception {
         String mazeFileName = "savedMaze.maze";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
@@ -22,10 +25,9 @@ import java.io.*;
             e.printStackTrace();
         }
         byte savedMazeBytes[] = new byte[0];
-/*        try {
+        try {
             //read maze from file
-            InputStream in = new MyDecompressorInputStream(new
-                    FileInputStream(mazeFileName));
+            InputStream in = new SimpleDecompressorInputStream(new FileInputStream(mazeFileName));
             savedMazeBytes = new byte[maze.toByteArray().length];
             in.read(savedMazeBytes);
             in.close();

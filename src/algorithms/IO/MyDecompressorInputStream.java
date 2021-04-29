@@ -28,8 +28,7 @@ public class MyDecompressorInputStream extends InputStream {
             if(currVal<0){ //the meaning that the counter in contents[j] between 128-255
                 currVal=currVal+256;
             }
-
-        int [] binaryVal = decimalToBinary(currVal); //convert the int value to "8-bits" (binary number)
+            int [] binaryVal = decimalToBinary(currVal); //convert the int value to "8-bits" (binary number)
             for (int k = 0; k < 8; k++) { //add binary number to  the byteArray
                 byteArray[i]=(byte)binaryVal[k];
                 i++;
@@ -45,7 +44,7 @@ public class MyDecompressorInputStream extends InputStream {
         int Col = Integer.parseInt(col, 10);
         int remainder = ((Row*Col)%8); //this will be the number of bits of the last block of cells
         int val = contents[contents.length-1];
-        if(val<0){
+        if(val < 0){
             val=val+256;
         }
         int [] binaryVal = decimalToBinary(val); //convert the int value to "8-bits" (binary number)

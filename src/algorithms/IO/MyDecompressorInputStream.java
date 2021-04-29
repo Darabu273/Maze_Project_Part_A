@@ -36,21 +36,15 @@ public class MyDecompressorInputStream extends InputStream {
             }
         }
 
-        //add the last byte (last block of cells) to the byte array (might be less than 8, so we have to check the reminder of the size from 8)
-        String row ="";
-        row+= byteArray[0] + byteArray[1];
-        int Row = Integer.parseInt(row, 10);
-        String col ="";
-        col+= byteArray[2] + byteArray[3];
-        int Col = Integer.parseInt(col, 10);
-        int remainder = ((Row*Col)%8); //this will be the number of bits of the last block of cells
+        //add the last byte (last block of cells) to the byte array (might be less than 8, so we have to check the reminder of the size)
+        int howMuchLeft = byteArray.length-i;
         int val = contents[contents.length-1];
         if(val<0){
             val=val+256;
         }
         int [] binaryVal = decimalToBinary(val); //convert the int value to "8-bits" (binary number)
-        for (int k = (8-remainder); k < 8; k++) {
-            byteArray[i]=(byte) binaryVal[k];
+        for (int k = 0; k < howMuchLeft; k++) {
+            byteArray[i]=(byte) binaryVal[k+(8-howMuchLeft)]; //insert to byteArray the last howMuchLeft-values from the end of the binaryVal array
             i++;
         }
 

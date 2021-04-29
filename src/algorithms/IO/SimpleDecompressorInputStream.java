@@ -20,7 +20,7 @@ public class SimpleDecompressorInputStream extends InputStream {
 
     public int read(byte[] byteArray) throws IOException {//read the meta data of the maze and remove the data from the compression
         byte[] contents = in.readAllBytes();
-        System.out.println(contents.length-24); //check the compressor
+        //System.out.println(contents.length-24); //check the compressor
         int i;
         int currentByte = 1;
         for (i = 0; i < 24; i++) { // copy all the 24 chars (meta data) to new byte array as is.

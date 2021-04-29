@@ -31,24 +31,22 @@ public class Maze {
     //constructor - input = maze data (dimensions, content, start & goal position - uncompressed), build a new maze
     //our byte-array format: rows, columns, start position (x-row,y-column), goal position (x,y), maze content (row by row)
     public Maze(byte[] mazeArr) throws Exception {
-        //todo: change for 2 bytes instead of four for meta data?
         //convert the given bytes array to int-array
-        int intArr[] = new int[6+ (mazeArr.length-24)];
+        int intArr[] = new int[6+ (mazeArr.length-12)];
         int offset = 0;
-        //the bytes array using 4-bytes for each value of the meta data of the maze (rows, columns, start position (x-row,y-column), goal position (x,y))
+        //the bytes array using 2-bytes for each value of the meta data of the maze (rows, columns, start position (x-row,y-column), goal position (x,y))
         for(int i = 0; i < 6; i++) {
-            intArr[i] = (mazeArr[3 + offset] & 0xFF) | ((mazeArr[2 + offset] & 0xFF) << 8) | ((mazeArr[1 + offset] & 0xFF) << 16) | ((mazeArr[0 + offset] & 0xFF) << 24);
-            offset += 4;
+            intArr[i] = (mazeArr[1 + offset] & 0xFF) | ((mazeArr[0 + offset] & 0xFF) << 8) | ((0 & 0xFF) << 16) | ((0 & 0xFF) << 24);
+            offset += 2;
         }
         //the bytes array using 1-bytes for each value of the maze content cells (0/1)
-        for(int i = 0; i < (mazeArr.length-24); i++) {
-            intArr[i+6] = (int)mazeArr[24+i];
-
+        for(int i = 0; i < (mazeArr.length-12); i++) {
+            intArr[i+6] = (int)mazeArr[12+i];
         }
         //update all data members with the correct values (coordinate to the bytes values)
         Rows = intArr[0];
         Columns= intArr[1];
-        if (Rows < 2 || Columns < 2 )
+        if (Rows < 2 || Columns < 2 ) //maze must have at least 2 rows and two columns
             throw new Exception("Invalid inputs Maze most be at least 2x2");
         start = new Position(intArr[2], intArr[3]);
         end = new Position(intArr[4], intArr[5]);
@@ -110,7 +108,6 @@ public class Maze {
     //return byte array which represent the maze data (uncompressed info) - dimensions, content, start & goal position
     //our byte-array format: rows, columns, start position (x-row,y-column), goal position (x,y), maze content (row by row)
     public byte[] toByteArray() throws Exception{
-        //todo: change for 2 bytes instead of four for meta data?
         int[] MazeValues = new int[6]; //6 ints for rows,columns, start&goal position x&y + this.Columns*this.Rows for maze content
         MazeValues[0]= Rows;
         MazeValues[1] = Columns;
@@ -120,18 +117,25 @@ public class Maze {
         MazeValues[5] = getGoalPosition().getColumnIndex();
 
         //convert Maze meta data to bytes
-        ByteBuffer byteBuffer = ByteBuffer.allocate(24); //4 bytes for the rows,columns, start&goal position values, and one byte for each maze content cell value
+        ByteBuffer byteBuffer = ByteBuffer.allocate(24); //start with 4 bytes for the rows,columns, start&goal position values, and one byte for each maze content cell value
         IntBuffer intBuffer = byteBuffer.asIntBuffer();
         intBuffer.put(MazeValues);
         byte[] array = byteBuffer.array(); //the return array
 
         //add meta data in bytes int into the final-result array
-        byte[] MazeInBytes = new byte[24+ (this.Columns*this.Rows)];  //todo : can be better (2 bytes for meta & 1 byte for 8 bits)
-        for (int i = 0; i < 24; i++) {
-            MazeInBytes[i]= array[i];
+        //change to two bytes for the rows,columns, start&goal position values (because their max value = 1000, can be represented by 2 bytes), and one byte for each maze content cell value
+        byte[] MazeInBytes = new byte[12+ (this.Columns*this.Rows)];
+        int k = 2;
+        for (int i = 0; i < 12; i++) {
+            MazeInBytes[i]= array[k];
+            k++;
+            i++;
+            MazeInBytes[i]= array[k];
+            k=k+3;
         }
+
         //add maze content to the final-result array - 1 byte per each cell value
-        int Curr = 24;
+        int Curr = 12;
         for(int i=0; i< Rows; i++){
             for (int j = 0; j < Columns; j++) {
                 MazeInBytes[Curr]= (byte)this.mazeContent[i][j];

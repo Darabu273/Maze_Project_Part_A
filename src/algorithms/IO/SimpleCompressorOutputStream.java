@@ -1,10 +1,8 @@
 package algorithms.IO;
 
-import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+
 
 public class SimpleCompressorOutputStream extends OutputStream {
     OutputStream out;
@@ -18,17 +16,15 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
     @Override
     public void write(byte[] b) throws IOException {
-        //todo: change for 2 bytes instead of four for meta data?
-
         byte[] bytes = new  byte[b.length];
         int i;
-        for (i = 0; i < 24; i++) { //copy the values of - rows, columns, start position and goal position as is to new byte array.
+        for (i = 0; i < 12; i++) { //copy the values of - rows, columns, start position and goal position as is to new byte array.
             bytes[i] =(b[i]);
         }
-        out.write(bytes,0,24); //write the meta data of the maze to the file
+        out.write(bytes,0,12); //write the meta data of the maze to the file
         int counter=0; //count how many chars of the current checked char we have seen
         int prev = 0; // prev position = we will start the counting with zero-char
-        for (int j = 24; j <b.length ; j++) { //will do different manipulate of write
+        for (int j = 12; j <b.length ; j++) { //will do different manipulate of write
             if (prev == b[j]){
                 counter++;
             }

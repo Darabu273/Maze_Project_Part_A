@@ -7,8 +7,8 @@ import java.nio.charset.StandardCharsets;
 public class MyDecompressorInputStream extends InputStream {
     InputStream in;
 
-    public MyDecompressorInputStream(InputStream fileInputStream) {
-        this.in = fileInputStream;
+    public MyDecompressorInputStream(InputStream inputStream) {
+        this.in = inputStream;
     }
 
     @Override

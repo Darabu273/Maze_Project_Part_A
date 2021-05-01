@@ -18,26 +18,22 @@ import java.util.ArrayList;
 
 public class RunCommunicateWithServers {
     public static void main(String[] args) {//Initializing servers
-        Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
-        //Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
-        //Server stringReverserServer = new Server(5402, 1000, new ServerStrategyStringReverser());
+       //Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());  // to open todo
+        Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
 
         //Starting servers
-        //solveSearchProblemServer.start(); // to open todo
-        mazeGeneratingServer.start();
-        //stringReverserServer.start();
-
+        solveSearchProblemServer.start();
+        //mazeGeneratingServer.start(); // to open todo
 
 /*
         for (int i = 0; i <3; i++) {
             new Thread(()->{CommunicateWithServer_MazeGenerating();}).start();
-            //Thread.sleep(5000);
         }
 */
 
-        Thread[] threadsArr = new Thread[3];
+        Thread[] threadsArr = new Thread[1];
         for (int i = 0; i<threadsArr.length; i++){
-            threadsArr[i] = new Thread(() -> CommunicateWithServer_MazeGenerating());
+            threadsArr[i] = new Thread(() -> CommunicateWithServer_SolveSearchProblem());
             threadsArr[i].start();
         }
 
@@ -56,13 +52,11 @@ public class RunCommunicateWithServers {
 
         //Communicating with servers
         //CommunicateWithServer_MazeGenerating(); //to add todo
-        //CommunicateWithServer_SolveSearchProblem(); //to open todo
-        //CommunicateWithServer_StringReverser();
+        //CommunicateWithServer_SolveSearchProblem(); // to open todo
 
         //Stopping all servers
-        //mazeGeneratingServer.stop();//to add todo
-        //solveSearchProblemServer.stop(); //to open todo
-        //stringReverserServer.stop();
+        //mazeGeneratingServer.stop(); //to open todo
+        solveSearchProblemServer.stop();
     }
     private static void CommunicateWithServer_MazeGenerating() {
         try {
@@ -71,10 +65,7 @@ public class RunCommunicateWithServers {
                         public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                             try {
                                 ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
-                                System.out.println("arrived");
                                 ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
-                                System.out.println("not arrived");
-
                                 toServer.flush();
                                 int[] mazeDimensions = new int[]{5, 5};//todo 50 50
                                 toServer.writeObject(mazeDimensions); //send maze dimensions to server
@@ -107,7 +98,7 @@ public class RunCommunicateWithServers {
                                 ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                                 toServer.flush();
                                 MyMazeGenerator mg = new MyMazeGenerator();
-                                Maze maze = mg.generate(50, 50);
+                                Maze maze = mg.generate(5, 5); //todo 50 50
                                 maze.print();
                                 toServer.writeObject(maze); //send maze to server
                                 toServer.flush();
@@ -128,33 +119,4 @@ public class RunCommunicateWithServers {
             e.printStackTrace();
         }
     }
-/*    private static void CommunicateWithServer_StringReverser() {
-        try {
-            Client client = new Client(InetAddress.getLocalHost(), 5402, new IClientStrategy() {
-                        @Override
-                        public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
-                            try {
-                                BufferedReader fromServer = new BufferedReader(new InputStreamReader(inFromServer));
-                                PrintWriter toServer = new PrintWriter(outToServer);
-                                26 | P a g e
-                                        %s", serverResponse));
-                                String message = "Client Message";
-                                String serverResponse;
-                                toServer.write(message + "\n");
-                                toServer.flush();
-                                serverResponse = fromServer.readLine();
-                                System.out.println(String.format("Server response:
-                                        toServer.flush();
-                                fromServer.close();
-                                toServer.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-            client.communicateWithServer();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }*/
 }

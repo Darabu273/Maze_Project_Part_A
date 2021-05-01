@@ -55,10 +55,11 @@ public class Server {
                     });
 
                 } catch (SocketTimeoutException e) {
-                    System.out.println("Socket timeout");
+                    //System.out.println("Socket timeout");
                 }
             }
-            threadPool.shutdownNow();
+            System.out.println(threadPool.toString());
+            threadPool.shutdown();
         } catch (IOException e) {
             System.out.println("IOException");
         }

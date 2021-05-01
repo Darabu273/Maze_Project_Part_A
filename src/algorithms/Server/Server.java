@@ -58,7 +58,8 @@ public class Server {
                     System.out.println("Socket timeout");
                 }
             }
-            threadPool.shutdownNow();
+            System.out.println("thread----------------------->" + threadPool.toString());
+            threadPool.shutdown();
         } catch (IOException e) {
             System.out.println("IOException");
         }

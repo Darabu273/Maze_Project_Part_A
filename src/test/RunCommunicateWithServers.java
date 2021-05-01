@@ -30,6 +30,7 @@ public class RunCommunicateWithServers {
 
         for (int i = 0; i <3; i++) {
             new Thread(()->{CommunicateWithServer_MazeGenerating();}).start();
+            //Thread.sleep(5000);
         }
         /*new Thread(() -> {
                         handleClient(clientSocket);
@@ -42,7 +43,7 @@ public class RunCommunicateWithServers {
         //CommunicateWithServer_StringReverser();
 
         //Stopping all servers
-        mazeGeneratingServer.stop();
+        //mazeGeneratingServer.stop();//to add todo
         //solveSearchProblemServer.stop(); //to open todo
         //stringReverserServer.stop();
     }
@@ -53,7 +54,10 @@ public class RunCommunicateWithServers {
                         public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                             try {
                                 ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                                System.out.println("arrived");
                                 ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                                System.out.println("not arrived");
+
                                 toServer.flush();
                                 int[] mazeDimensions = new int[]{5, 5};//todo 50 50
                                 toServer.writeObject(mazeDimensions); //send maze dimensions to server

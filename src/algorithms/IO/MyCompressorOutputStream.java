@@ -7,8 +7,8 @@ public class MyCompressorOutputStream extends OutputStream {
 
     OutputStream out;
 
-    public MyCompressorOutputStream(OutputStream fileOutputStream) {
-        this.out = fileOutputStream;
+    public MyCompressorOutputStream(OutputStream outputStream) {
+        this.out = outputStream;
     }
 
     @Override

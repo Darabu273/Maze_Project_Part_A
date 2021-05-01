@@ -7,8 +7,8 @@ import java.io.*;
 public class SimpleCompressorOutputStream extends OutputStream {
     OutputStream out;
 
-    public SimpleCompressorOutputStream(OutputStream fileOutputStream) {
-        this.out = fileOutputStream;
+    public SimpleCompressorOutputStream(OutputStream outputStream) {
+        this.out = outputStream;
     }
 
     @Override

@@ -6,8 +6,8 @@ import java.io.InputStream;
 public class SimpleDecompressorInputStream extends InputStream {
     InputStream in;
 
-    public SimpleDecompressorInputStream(InputStream fileInputStream) {
-        this.in = fileInputStream;
+    public SimpleDecompressorInputStream(InputStream inputStream) {
+        this.in = inputStream;
     }
 
     @Override

@@ -9,8 +9,10 @@ import algorithms.Server.ServerStrategySolveSearchProblem;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.AState;
+import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
+import javax.swing.plaf.TableHeaderUI;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -31,7 +33,7 @@ public class RunCommunicateWithServers {
         }
 */
 
-        Thread[] threadsArr = new Thread[1];
+        Thread[] threadsArr = new Thread[10];
         for (int i = 0; i<threadsArr.length; i++){
             threadsArr[i] = new Thread(() -> CommunicateWithServer_SolveSearchProblem());
             threadsArr[i].start();
@@ -99,16 +101,18 @@ public class RunCommunicateWithServers {
                                 toServer.flush();
                                 MyMazeGenerator mg = new MyMazeGenerator();
                                 Maze maze = mg.generate(5, 5); //todo 50 50
-                                maze.print();
+                                //maze.print();
+                                printMaze(maze);
                                 toServer.writeObject(maze); //send maze to server
                                 toServer.flush();
                                 Solution mazeSolution = (Solution)fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                                 //Print Maze Solution retrieved from the server
-                                System.out.println(String.format("Solution steps: %s", mazeSolution));
+/*                                System.out.println(String.format("Solution steps: %s", mazeSolution));
                                 ArrayList<AState> mazeSolutionSteps = mazeSolution.getSolutionPath();
                                 for (int i = 0; i < mazeSolutionSteps.size(); i++) {
                                     System.out.println(String.format("%s. %s", i, mazeSolutionSteps.get(i).toString()));
-                                }
+                                }*/ //todo
+                                printSol(mazeSolution);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -118,5 +122,19 @@ public class RunCommunicateWithServers {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
+    }
+
+    private static synchronized void printMaze(Maze m) throws Exception {
+        m.print();
+        System.out.println("-----");
+    }
+
+    private static synchronized void printSol(Solution mazeSolution) throws Exception {
+        System.out.println(String.format("Solution steps: %s", mazeSolution));
+        ArrayList<AState> mazeSolutionSteps = mazeSolution.getSolutionPath();
+        for (int i = 0; i < mazeSolutionSteps.size(); i++) {
+            System.out.println(String.format("%s. %s", i, mazeSolutionSteps.get(i).toString()));
+        }
+        System.out.println("-----");
     }
 }

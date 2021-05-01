@@ -25,7 +25,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             if (fromClient != null ) {
                 Maze clientMaze =(Maze)fromClient.readObject(); //read maze-input from client
                 SearchableMaze searchableMaze = new SearchableMaze(clientMaze); //create new instance of searchableMaze
-                Solution solution = searcher.solve(searchableMaze); //find searchableMaze solution
+                Solution solution = GetSolution(searchableMaze); //find searchableMaze solution
                 toClient.writeObject(solution); //send solution to client
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -35,4 +35,10 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
         }
 
     }
+
+    private synchronized Solution GetSolution(SearchableMaze searchableMaze) throws Exception {
+        Solution solution = searcher.solve(searchableMaze);;
+        return solution;
+    }
+
 }

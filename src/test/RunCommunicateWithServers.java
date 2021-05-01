@@ -19,22 +19,22 @@ import java.util.ArrayList;
 public class RunCommunicateWithServers {
     public static void main(String[] args) {//Initializing servers
         Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
-        Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        //Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
         //Server stringReverserServer = new Server(5402, 1000, new ServerStrategyStringReverser());
 
         //Starting servers
-        solveSearchProblemServer.start();
+        //solveSearchProblemServer.start(); // to open todo
         mazeGeneratingServer.start();
         //stringReverserServer.start();
 
         //Communicating with servers
         CommunicateWithServer_MazeGenerating();
-        CommunicateWithServer_SolveSearchProblem();
+        //CommunicateWithServer_SolveSearchProblem(); //to open todo
         //CommunicateWithServer_StringReverser();
 
         //Stopping all servers
         mazeGeneratingServer.stop();
-        solveSearchProblemServer.stop();
+        //solveSearchProblemServer.stop(); //to open todo
         //stringReverserServer.stop();
     }
     private static void CommunicateWithServer_MazeGenerating() {

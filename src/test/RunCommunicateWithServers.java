@@ -28,10 +28,27 @@ public class RunCommunicateWithServers {
         //stringReverserServer.start();
 
 
+/*
         for (int i = 0; i <3; i++) {
             new Thread(()->{CommunicateWithServer_MazeGenerating();}).start();
             //Thread.sleep(5000);
         }
+*/
+
+        Thread[] threadsArr = new Thread[3];
+        for (int i = 0; i<threadsArr.length; i++){
+            threadsArr[i] = new Thread(() -> CommunicateWithServer_MazeGenerating());
+            threadsArr[i].start();
+        }
+
+        for (int j = 0; j<threadsArr.length; j++) {
+            try {
+                threadsArr[j].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         /*new Thread(() -> {
                         handleClient(clientSocket);
                     }).start();

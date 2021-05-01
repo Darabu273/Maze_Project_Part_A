@@ -4,8 +4,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client {
-    private InetAddress serverIP;
-    private int serverPort;
+    private InetAddress serverIP; //the IP server we will connect to
+    private int serverPort; ////the Port server we will connect to - will be same as the Port of the Client
     private IClientStrategy strategy;
 
     public Client(InetAddress serverIP, int serverPort, IClientStrategy strategy) {
@@ -14,7 +14,7 @@ public class Client {
         this.strategy = strategy;
     }
 
-    public void communicateWithServer()
+    public void communicateWithServer() // the connect between Client and the suitable server and applying the client Strategy that we got in RunCommunicateWithServers class.
     {
         try(Socket serverSocket = new Socket(serverIP, serverPort)){
         System.out.println("connected to server - IP = " + serverIP + ", Port = " + serverPort);

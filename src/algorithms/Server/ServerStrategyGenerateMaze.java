@@ -10,28 +10,22 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
     @Override
     public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
 
-            String clientCommand;
+            int[] clientCommand;
             int index = 0;
             try {
                 ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
                 ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
 
                 if (fromClient != null ) {
-                    clientCommand = (String)fromClient.readObject();
-                    for (int i = 0; i < clientCommand.length(); i++) {
-                        if (clientCommand.charAt(i) == ',') {
-                            index = i;
-                            break;
-                        }
-                    }
-                    int row = Integer.parseInt(String.valueOf(clientCommand.substring(1, index - 1)), 10);
-                    int col = Integer.parseInt(String.valueOf(clientCommand.substring(index + 1, clientCommand.length() - 2)), 10);
+                    clientCommand =(int[])fromClient.readObject();
                     try {
-                        Maze maze = MymazeGenerator.generate(row, col);
+                        Maze maze = MymazeGenerator.generate(clientCommand[0], clientCommand[1]);
                         //Compress maze
-                        OutputStream out = new MyCompressorOutputStream(toClient);
+                        ByteArrayOutputStream sourceTosend =  new ByteArrayOutputStream(maze.toByteArray().length);
+                        OutputStream out = new MyCompressorOutputStream(sourceTosend);
                         out.write(maze.toByteArray());
                         out.flush();
+                        toClient.writeObject(sourceTosend.toByteArray());
                         out.close();
                     } catch (Exception e) {
                         e.printStackTrace();

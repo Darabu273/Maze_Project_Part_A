@@ -6,6 +6,7 @@ import java.io.*;
 /**
  * ServerStrategyGenerateMaze implements IServerStrategy interface
  * applyStrategy will build a maze by get int array with 2 parameters, holds the size of the rows and columns maze we will create.
+
  */
 
 public class ServerStrategyGenerateMaze implements IServerStrategy {

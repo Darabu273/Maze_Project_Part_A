@@ -19,7 +19,6 @@ public class Maze implements Serializable {
     private Position end;
     int [][] mazeContent;
 
-
     //constructor
     public Maze(int rows, int columns) {
         Rows=rows;

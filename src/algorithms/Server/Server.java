@@ -23,6 +23,23 @@ public class Server {
 
     }
     public void start() {
+        threadPool.execute(()->{
+            threadStart(); });
+
+    }//todo
+    public void stop(){stop = true;}
+
+    public void handleClient(Socket clientSocket) {
+        try {
+            strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+            System.out.println("Done handling client: " + clientSocket.toString());
+            clientSocket.close();
+        } catch (IOException e){
+            System.out.println("IOException");
+        }
+    }
+
+    public void threadStart(){
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
@@ -43,17 +60,6 @@ public class Server {
             }
             threadPool.shutdownNow();
         } catch (IOException e) {
-            System.out.println("IOException");
-        }
-    }//todo
-    public void stop(){stop = true;}
-
-    private void handleClient(Socket clientSocket) {
-        try {
-            strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-            System.out.println("Done handling client: " + clientSocket.toString());
-            clientSocket.close();
-        } catch (IOException e){
             System.out.println("IOException");
         }
     }

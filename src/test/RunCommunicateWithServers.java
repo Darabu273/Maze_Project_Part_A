@@ -27,8 +27,17 @@ public class RunCommunicateWithServers {
         mazeGeneratingServer.start();
         //stringReverserServer.start();
 
+
+        for (int i = 0; i <3; i++) {
+            new Thread(()->{CommunicateWithServer_MazeGenerating();}).start();
+        }
+        /*new Thread(() -> {
+                        handleClient(clientSocket);
+                    }).start();
+*/
+
         //Communicating with servers
-        CommunicateWithServer_MazeGenerating();
+        //CommunicateWithServer_MazeGenerating(); //to add todo
         //CommunicateWithServer_SolveSearchProblem(); //to open todo
         //CommunicateWithServer_StringReverser();
 
@@ -46,12 +55,12 @@ public class RunCommunicateWithServers {
                                 ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                                 ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                                 toServer.flush();
-                                int[] mazeDimensions = new int[]{50, 50};
+                                int[] mazeDimensions = new int[]{5, 5};//todo 50 50
                                 toServer.writeObject(mazeDimensions); //send maze dimensions to server
                                 toServer.flush();
                                 byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                                 InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                                byte[] decompressedMaze = new byte[1000 /*CHANGE SIZE ACCORDING TO YOU MAZE SIZE*/];
+                                byte[] decompressedMaze = new byte[mazeDimensions[0]*mazeDimensions[1]+12]; ///*CHANGE SIZE ACCORDING TO YOU MAZE SIZE*/ todo
                                 //allocating byte[] for the decompressed maze -
                                 is.read(decompressedMaze);
                                 // Fill decompressedMaze with bytes

@@ -1,10 +1,12 @@
 package algorithms.search;
 
+import java.io.Serializable;
+
 /**
  * AState represent a specific state of the problem
  * this generic abstract class defines the functions the of every problem-state needs
  */
-public abstract class AState {
+public abstract class AState implements Serializable {
     private AState prevState; //each Astate will hold the previous state that it came from
     private int SumCost; // cost to arrive to this curr State, from the start
     private int CurrCost; //cost to move to this Astate, from the prev Astate

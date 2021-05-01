@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -11,7 +12,7 @@ import java.util.Arrays;
  * this class have rows, columns sizes, start position and goal position (the target)
  * moreover, it have a  mazeContent data member, which contains the maze itself ([][] int array)
  */
-public class Maze {
+public class Maze implements Serializable {
     int Rows;
     int Columns;
     private Position start;
@@ -30,7 +31,7 @@ public class Maze {
 
     //constructor - input = maze data (dimensions, content, start & goal position - uncompressed), build a new maze
     //our byte-array format: rows, columns, start position (x-row,y-column), goal position (x,y), maze content (row by row)
-    public Maze(byte[] mazeArr) throws Exception {
+    public Maze(byte[] mazeArr)  throws Exception {
         //convert the given bytes array to int-array
         int intArr[] = new int[6+ (mazeArr.length-12)];
         int offset = 0;

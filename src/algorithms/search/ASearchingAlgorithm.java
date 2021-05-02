@@ -51,7 +51,15 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
                 ArrayList<AState> path = new ArrayList<AState>();
                 while(!curr.equals(problem.getStartState())){
                         path.add(0,curr);
-                        curr = curr.getPrevState(); }
+                        curr = curr.getPrevState();
+                        if(curr==null){ //todo
+                                System.out.println("here - null"); //todo
+                                System.out.println(problem.getStartState());
+                                System.out.println(problem.getGoalState());
+                                System.out.println("here - null");
+                                break; //todo
+                        }
+                }
                 path.add(0,problem.getStartState());
                 //create a Solution instance from this path
                 Solution sol = new Solution(path);

@@ -31,6 +31,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 //writeSolution(toClient,solution);
             }
         } catch (IOException | ClassNotFoundException e) {
+            System.out.println("here1"); //todo
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();

@@ -33,7 +33,7 @@ public class RunCommunicateWithServers {
         }
 */
 
-        Thread[] threadsArr = new Thread[3];
+        Thread[] threadsArr = new Thread[1];
         for (int i = 0; i<threadsArr.length; i++){
             threadsArr[i] = new Thread(() -> CommunicateWithServer_SolveSearchProblem());
             threadsArr[i].start();
@@ -51,13 +51,13 @@ public class RunCommunicateWithServers {
                         handleClient(clientSocket);
                     }).start();
 */
-
         //Communicating with servers
         //CommunicateWithServer_MazeGenerating(); //to add todo
         //CommunicateWithServer_SolveSearchProblem(); // to open todo
 
         //Stopping all servers
         //mazeGeneratingServer.stop(); //to open todo
+
         solveSearchProblemServer.stop();
     }
     private static void CommunicateWithServer_MazeGenerating() {
@@ -100,9 +100,10 @@ public class RunCommunicateWithServers {
                                 ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                                 toServer.flush();
                                 MyMazeGenerator mg = new MyMazeGenerator();
-                                Maze maze = mg.generate(5, 5); //todo 50 50
+                                Maze maze = mg.generate(4, 4); //todo 50 50
                                 //maze.print();
-                                printMaze(maze);
+                                long i = Thread.currentThread().getId();
+                                printMaze(maze,i);
                                 toServer.writeObject(maze); //send maze to server
                                 toServer.flush();
                                 Solution mazeSolution = (Solution)fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
@@ -112,7 +113,7 @@ public class RunCommunicateWithServers {
                                 for (int i = 0; i < mazeSolutionSteps.size(); i++) {
                                     System.out.println(String.format("%s. %s", i, mazeSolutionSteps.get(i).toString()));
                                 }*/ //todo
-                                printSol(mazeSolution);
+                                printSol(mazeSolution, i);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -124,12 +125,14 @@ public class RunCommunicateWithServers {
         }
     }
 
-    private static synchronized void printMaze(Maze m) throws Exception {
+    private static synchronized void printMaze(Maze m, long id) throws Exception {
+        System.out.println("thread id: " + id);
         m.print();
         System.out.println("-----");
     }
 
-    private static synchronized void printSol(Solution mazeSolution) throws Exception {
+    private static synchronized void printSol(Solution mazeSolution, long id) throws Exception {
+        System.out.println("thread id: " + id);
         System.out.println(String.format("Solution steps: %s", mazeSolution));
         ArrayList<AState> mazeSolutionSteps = mazeSolution.getSolutionPath();
         for (int i = 0; i < mazeSolutionSteps.size(); i++) {

@@ -19,14 +19,15 @@ public class Server {
         this.port = port;
         this.strategy = strategy;
         this.listeningIntervalMS=listeningIntervalMS;
-        this.threadPool = Executors.newCachedThreadPool();
+        this.threadPool = Executors.newFixedThreadPool(5);
 
     }
     public void start() { // create MainThread in the threadPool that will enable to the Main Program to rum parallel to the other threads that execute there task.
-        threadPool.execute(()->{
-            threadStart(); });
+        new Thread(()->{
+            threadStart(); }).start();
 
-    }//todo
+    }
+
     public void stop(){stop = true;}
 
     public void handleClient(Socket clientSocket) { //This function will apply in generically in the relevant Strategy on the current Client

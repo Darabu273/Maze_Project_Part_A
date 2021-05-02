@@ -28,7 +28,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
     String tempDirectoryPath = System.getProperty("java.io.tmpdir"); //the temporary directory path
 
     @Override
-    public synchronized void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
+    public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);

@@ -33,7 +33,7 @@ public class RunCommunicateWithServers {
         }
 */
 
-        Thread[] threadsArr = new Thread[6];
+        Thread[] threadsArr = new Thread[3];
         for (int i = 0; i<threadsArr.length; i++){
             threadsArr[i] = new Thread(() -> CommunicateWithServer_SolveSearchProblem());
             threadsArr[i].start();

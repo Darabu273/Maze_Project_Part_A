@@ -6,7 +6,7 @@ import java.io.Serializable;
  * this class will represent a position in the 3D maze,
  * this position have row, column and depth indexes
  */
-public class Position3D implements Serializable {
+public class Position3D {
 
     private int my_row;
     private int my_col;

@@ -12,10 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * applyStrategy will solve the a maze problem and will return Solution Object of the maze.
  */
 
-//todo: check with rotem about creation of file (temporaty? need to delete after running?)
-
 public class ServerStrategySolveSearchProblem implements IServerStrategy {
-    private ISearchingAlgorithm searcher = new BestFirstSearch(); //searcher to solve the given maze
+    private ISearchingAlgorithm searcher = Configurations.getSearchingAlgorithm(); //searcher to solve the given maze
     private AtomicInteger solNumber = new AtomicInteger(0); //solNumber will hold the uniqe index of each maze-solution
     ConcurrentHashMap<String, Integer> SolutionsMap = new ConcurrentHashMap<>(); //hash map that save the solution index for each maze
     String tempDirectoryPath = System.getProperty("java.io.tmpdir"); //the temporary directory path

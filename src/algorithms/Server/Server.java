@@ -13,14 +13,16 @@ public class Server {
     private IServerStrategy strategy;
     private ExecutorService threadPool;
     private volatile boolean stop;
+    private static Configurations configFile = Configurations.getConfigurations();
+    private int treadsNumber;
 
 
     public Server(int port, int listeningIntervalMS ,IServerStrategy strategy) {
         this.port = port;
         this.strategy = strategy;
         this.listeningIntervalMS=listeningIntervalMS;
-        this.threadPool = Executors.newFixedThreadPool(5);
-
+        treadsNumber = Configurations.getThreadsNumber();
+        this.threadPool = Executors.newFixedThreadPool(treadsNumber);
     }
     public void start() { // create MainThread in the threadPool that will enable to the Main Program to rum parallel to the other threads that execute there task.
         new Thread(()->{
@@ -57,13 +59,25 @@ public class Server {
                     });
 
                 } catch (SocketTimeoutException e) {
-                    System.out.println("Socket timeout"); //todo: need to stop the server
+                    System.out.println("Socket timeout"); //todo
                 }
             }
-            System.out.println(threadPool.toString()); //todo
             threadPool.shutdown(); //when all the tasks we want to do will finish we will shut down the server service.
+            serverSocket.close();
         } catch (IOException e) {
             System.out.println("IOException");
+        }
+    }
+
+    public static void defineConfigurations(String Property, String value) throws Exception {
+        if(Property.equals("threadPoolSize")){
+            Configurations.setThreadPoolSize(value);
+        }
+        else if(Property.equals("mazeGeneratingAlgorithm")){
+            Configurations.setGenerator(value);
+        }
+        else if(Property.equals("mazeSearchingAlgorithm")){
+            Configurations.setSearchingAlgorithm(value);
         }
     }
 }

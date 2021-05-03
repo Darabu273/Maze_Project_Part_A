@@ -19,8 +19,12 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class RunCommunicateWithServers {
-    public static void main(String[] args) {//Initializing servers
-       //Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());  // to open todo
+    public static void main(String[] args) throws Exception {//Initializing servers
+        Server.defineConfigurations("mazeGeneratingAlgorithm", "MyMazeGenerator");
+        Server.defineConfigurations("mazeSearchingAlgorithm", "BestFirstSearch");
+        Server.defineConfigurations("threadPoolSize", "5");
+
+        //Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());  // to open todo
         Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
 
         //Starting servers
@@ -57,7 +61,6 @@ public class RunCommunicateWithServers {
 
         //Stopping all servers
         //mazeGeneratingServer.stop(); //to open todo
-
         solveSearchProblemServer.stop();
     }
     private static void CommunicateWithServer_MazeGenerating() {
@@ -69,7 +72,7 @@ public class RunCommunicateWithServers {
                                 ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                                 ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                                 toServer.flush();
-                                int[] mazeDimensions = new int[]{5, 5};//todo 50 50
+                                int[] mazeDimensions = new int[]{50, 50};//todo 50 50
                                 toServer.writeObject(mazeDimensions); //send maze dimensions to server
                                 toServer.flush();
                                 byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
@@ -79,7 +82,9 @@ public class RunCommunicateWithServers {
                                 is.read(decompressedMaze);
                                 // Fill decompressedMaze with bytes
                                 Maze maze = new Maze(decompressedMaze);
-                                maze.print();
+                                //maze.print();
+                                long i = Thread.currentThread().getId(); //todo
+                                //printMaze(maze,i); //todo
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -101,7 +106,7 @@ public class RunCommunicateWithServers {
                                 ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                                 toServer.flush();
                                 MyMazeGenerator mg = new MyMazeGenerator();
-                                Maze maze = mg.generate(4, 4); //todo 50 50
+                                Maze maze = mg.generate(5, 5); //todo 50 50
                                 //maze.print();
                                 long i = Thread.currentThread().getId();
                                 printMaze(maze,i);

@@ -4,6 +4,9 @@ package algorithms.IO;
 import java.io.*;
 
 
+/**
+ * compress maze by the given method of this task
+ */
 public class SimpleCompressorOutputStream extends OutputStream {
     OutputStream out;
 

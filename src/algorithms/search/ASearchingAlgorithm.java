@@ -52,12 +52,8 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
                 while(!curr.equals(problem.getStartState())){
                         path.add(0,curr);
                         curr = curr.getPrevState();
-                        if(curr==null){ //todo
-                                System.out.println("here - null"); //todo
-                                System.out.println(problem.getStartState());
-                                System.out.println(problem.getGoalState());
-                                System.out.println("here - null");
-                                break; //todo
+                        if(curr==null){
+                                throw new Exception("There is no solution for this problem");
                         }
                 }
                 path.add(0,problem.getStartState());

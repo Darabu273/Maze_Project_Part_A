@@ -3,6 +3,10 @@ package algorithms.IO;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * compress maze in our method (described in comments) -
+ * each 8 cells (bits of 0 and 1) in the maze will be hold in one byte in the byte array of the maze
+ */
 public class MyCompressorOutputStream extends OutputStream {
 
     OutputStream out;

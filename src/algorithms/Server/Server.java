@@ -7,6 +7,10 @@ import java.net.SocketTimeoutException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * the server will communicate will multiply clients in parallel by using threads, that will be managed by thread-pool
+ * the server will run in it's own thread
+ */
 public class Server {
     private int port;
    private int listeningIntervalMS;
@@ -14,7 +18,7 @@ public class Server {
     private ExecutorService threadPool;
     private volatile boolean stop;
     private static Configurations configFile = Configurations.getConfigurations();
-    private int treadsNumber;
+    private int treadsNumber; //how many threads we have in the pool
 
 
     public Server(int port, int listeningIntervalMS ,IServerStrategy strategy) {
@@ -24,7 +28,7 @@ public class Server {
         treadsNumber = Configurations.getThreadsNumber();
         this.threadPool = Executors.newFixedThreadPool(treadsNumber);
     }
-    public void start() { // create MainThread in the threadPool that will enable to the Main Program to rum parallel to the other threads that execute there task.
+    public void start() { // create server thread that will enable to the Main Program to rum parallel to the other threads that execute there task.
         new Thread(()->{
             threadStart(); }).start();
 
@@ -34,38 +38,34 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
-            System.out.println("Starting server at port = " + port);
 
             while (!stop) { // the Server will work and wait for clients until we change stop to true.
                 try {
                     Socket clientSocket = serverSocket.accept(); //waiting for connecting client
-                    System.out.println("Client accepted: " + clientSocket.toString());
 
                     //handleClient function is thread's task that get the current connection with clientSocket
                     threadPool.execute(() -> {handleClient(clientSocket);});
 
                 } catch (SocketTimeoutException e) {
-                    System.out.println("Socket timeout"); //todo
+                    //do nothing
                 }
             }
             threadPool.shutdown(); //when all the tasks we want to do will finish we will shut down the server service.
             serverSocket.close();
         } catch (IOException e) {
-            System.out.println("IOException");
+            e.printStackTrace();
         }
     }
 
     public void stop(){
-        System.out.println("byby server.."); //todo
         stop = true;}
 
     public void handleClient(Socket clientSocket) { //This function will apply in generically in the relevant Strategy on the current Client
         try {
             strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-            System.out.println("Done handling client: " + clientSocket.toString());
             clientSocket.close();
         } catch (IOException e){
-            System.out.println("IOException");
+            e.printStackTrace();
         }
     }
 

@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * decompress maze in our method (described in comments) -
+ * each byte  in the byte array of the maze will become and represent 8 cells (bits of 0 and 1) in the maze
+ */
+
 public class MyDecompressorInputStream extends InputStream {
     InputStream in;
 

@@ -1,10 +1,7 @@
 package test;
-//import IO.MyCompressorOutputStream;
-//import IO.MyDecompressorInputStream;
+
 import algorithms.IO.MyCompressorOutputStream;
 import algorithms.IO.MyDecompressorInputStream;
-import algorithms.IO.SimpleCompressorOutputStream;
-import algorithms.IO.SimpleDecompressorInputStream;
 import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -15,7 +12,7 @@ public class RunCompressDecompressMaze {
     public static void main(String[] args) throws Exception {
         String mazeFileName = "savedMaze.maze";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
-        Maze maze = mazeGenerator.generate(1000,1000); //Generate new maze
+        Maze maze = mazeGenerator.generate(100,100); //Generate new maze
         try {
             // save maze to a file
             OutputStream out = new MyCompressorOutputStream(new FileOutputStream(mazeFileName));
@@ -42,20 +39,3 @@ public class RunCompressDecompressMaze {
         System.out.println(String.format("Mazes equal: %s",areMazesEquals));
     }
 }
-
-/*        Maze test = new Maze(maze.toByteArray()); //todo
-        boolean check =Arrays.equals(test.toByteArray(),maze.toByteArray()); //todo
-        System.out.println("first check"); //todo
-        System.out.println(String.format("Mazes equal: %s",check)); //todo
-        System.out.println("end check");//todo*/
-
-
-/*        //todo
-        byte[] newM = loadedMaze.toByteArray();
-        byte[] oldM = maze.toByteArray();
-        for (int i = 0; i < newM.length; i++) {
-            if(newM[i] != oldM[i]){
-                System.out.println("index: "+ i +" new maze: " +newM[i] +" old maze: "+ oldM[i]);
-            }
-        }
-        //todo*/

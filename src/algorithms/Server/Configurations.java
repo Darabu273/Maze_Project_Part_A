@@ -21,8 +21,6 @@ import java.util.Set;
  * propertiesInstance -  single object of Configurations (singleTone design pattern)
  */
 
-//todo - ask rotem about the configuration functions + the problem of second server
-
 public class Configurations {
     private static Configurations propertiesInstance = null; // The only instance of Configuration
     public static final String fileName = "./resources/config.properties"; //location of the configuration file

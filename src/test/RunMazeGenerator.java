@@ -3,22 +3,17 @@ import algorithms.mazeGenerators.*;
 
 public class RunMazeGenerator {
     public static void main(String[] args) throws Exception {
-        //testMazeGenerator(new EmptyMazeGenerator());
-        //testMazeGenerator(new SimpleMazeGenerator());
+        testMazeGenerator(new EmptyMazeGenerator());
+        testMazeGenerator(new SimpleMazeGenerator());
         testMazeGenerator(new MyMazeGenerator());
     }
     private static void testMazeGenerator(IMazeGenerator mazeGenerator) throws Exception {
         // prints the time it takes the algorithm to run
         System.out.println(String.format("Maze generation time(ms): %s", mazeGenerator.measureAlgorithmTimeMillis(100/*rows*/,100/*columns*/)));
         // generate another maze
-        Maze maze = mazeGenerator.generate(255/*rows*/, 1000/*columns*/); //todo change
+        Maze maze = mazeGenerator.generate(100/*rows*/, 100/*columns*/);
         // prints the maze
-        //maze.print();
-        byte[] by = maze.toByteArray(); //todo delete
-        Maze m = new Maze(by); //todo delete
-        System.out.println("----"); //todo delete
-        m.print(); //todo delete
-
+        maze.print();
         // get the maze entrance
         Position startPosition = maze.getStartPosition();
         // print the start position

@@ -3,6 +3,10 @@ package algorithms.IO;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * decompress maze by the given method of this task
+ */
+
 public class SimpleDecompressorInputStream extends InputStream {
     InputStream in;
 

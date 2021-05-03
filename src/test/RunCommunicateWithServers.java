@@ -33,7 +33,7 @@ public class RunCommunicateWithServers {
         }
 */
 
-        Thread[] threadsArr = new Thread[4];
+        Thread[] threadsArr = new Thread[2];
         for (int i = 0; i<threadsArr.length; i++){
             threadsArr[i] = new Thread(() -> CommunicateWithServer_SolveSearchProblem());
             threadsArr[i].start();
@@ -90,6 +90,7 @@ public class RunCommunicateWithServers {
             e.printStackTrace();
         }
     }
+
     private static void CommunicateWithServer_SolveSearchProblem() {
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {

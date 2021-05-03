@@ -35,6 +35,10 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
                         e.printStackTrace();
                     }
                 }
+
+                fromClient.close();
+                toClient.close();
+
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

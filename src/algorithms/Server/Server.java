@@ -30,18 +30,6 @@ public class Server {
 
     }
 
-    public void stop(){stop = true;}
-
-    public void handleClient(Socket clientSocket) { //This function will apply in generically in the relevant Strategy on the current Client
-        try {
-            strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-            System.out.println("Done handling client: " + clientSocket.toString());
-            clientSocket.close();
-        } catch (IOException e){
-            System.out.println("IOException");
-        }
-    }
-
     public void threadStart(){ //connect between Server and Client with the same port
         try {
             ServerSocket serverSocket = new ServerSocket(port);
@@ -54,9 +42,7 @@ public class Server {
                     System.out.println("Client accepted: " + clientSocket.toString());
 
                     //handleClient function is thread's task that get the current connection with clientSocket
-                    threadPool.execute(() -> {
-                        handleClient(clientSocket);
-                    });
+                    threadPool.execute(() -> {handleClient(clientSocket);});
 
                 } catch (SocketTimeoutException e) {
                     System.out.println("Socket timeout"); //todo
@@ -65,6 +51,20 @@ public class Server {
             threadPool.shutdown(); //when all the tasks we want to do will finish we will shut down the server service.
             serverSocket.close();
         } catch (IOException e) {
+            System.out.println("IOException");
+        }
+    }
+
+    public void stop(){
+        System.out.println("byby server.."); //todo
+        stop = true;}
+
+    public void handleClient(Socket clientSocket) { //This function will apply in generically in the relevant Strategy on the current Client
+        try {
+            strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+            System.out.println("Done handling client: " + clientSocket.toString());
+            clientSocket.close();
+        } catch (IOException e){
             System.out.println("IOException");
         }
     }

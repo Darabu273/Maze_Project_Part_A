@@ -60,7 +60,7 @@ public class RunCommunicateWithServers {
         //CommunicateWithServer_SolveSearchProblem(); // to open todo
 
         //Stopping all servers
-        //mazeGeneratingServer.stop(); //to open todo
+       // mazeGeneratingServer.stop(); //to open todo
         solveSearchProblemServer.stop();
     }
     private static void CommunicateWithServer_MazeGenerating() {

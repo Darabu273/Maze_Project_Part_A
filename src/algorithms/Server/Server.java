@@ -62,7 +62,7 @@ public class Server {
 
     public void handleClient(Socket clientSocket) { //This function will apply in generically in the relevant Strategy on the current Client
         try {
-            strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+            strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
             clientSocket.close();
         } catch (IOException e){
             e.printStackTrace();

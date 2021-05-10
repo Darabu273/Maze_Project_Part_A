@@ -36,9 +36,10 @@ public class Configurations {
             properties.setProperty("threadPoolSize", "3");
             properties.setProperty("mazeGeneratingAlgorithm", "MyMazeGenerator");
             properties.setProperty("mazeSearchingAlgorithm", "BestFirstSearch");
+            //todo: check the load
 
         } catch (IOException ex) {
-            ex.printStackTrace();
+            //if configuration file is empty, remain with default values for properties
         }
     }
 
@@ -52,7 +53,7 @@ public class Configurations {
 
     //setters & getters for each property
 
-    public static void setThreadPoolSize(String value) throws IOException {
+    public static void setThreadPoolSize(String value)  {
         try{
             Integer.parseInt(value); //if the given value isn't a number -> trow exception
             //check if this Property is already exist and update the right value -> if not -> create a new one
@@ -63,49 +64,59 @@ public class Configurations {
             }
             properties.store(configurationOut, null); //save the changes to the file
         }
-        catch (NumberFormatException e){
-            e.printStackTrace();
+        catch (NumberFormatException | IOException e){
+            //if the user sent wrong value / problem have been occurred, remain with the old value
         }
     }
 
-    public static void setGenerator(String value) throws Exception {
-        Set<String> set = new HashSet<String>(Arrays.asList("EmptyMazeGenerator","SimpleMazeGenerator","MyMazeGenerator"));
-        //make sure that value != null, and have a valid content
-        if (value != null) {
-            if(!set.contains(value)){
-                throw new Exception("Invalid inputs: given generator name is wrong: only EmptyMazeGenerator, SimpleMazeGenerator, MyMazeGenerator are valid");
+    public static void setGenerator(String value){
+        try{
+            Set<String> set = new HashSet<String>(Arrays.asList("EmptyMazeGenerator","SimpleMazeGenerator","MyMazeGenerator"));
+            //make sure that value != null, and have a valid content
+            if (value != null) {
+                if(!set.contains(value)){
+                    throw new Exception("Invalid inputs: given generator name is wrong: only EmptyMazeGenerator, SimpleMazeGenerator, MyMazeGenerator are valid");
+                }
+                //check if this Property is already exist and update the right value -> if not -> create a new one
+                if(properties.containsKey("mazeGeneratingAlgorithm"))
+                    properties.replace("mazeGeneratingAlgorithm", value);
+                else{
+                    properties.setProperty("mazeGeneratingAlgorithm", value);
+                }
+                properties.store(configurationOut, null); //save the changes to the file
             }
-            //check if this Property is already exist and update the right value -> if not -> create a new one
-            if(properties.containsKey("mazeGeneratingAlgorithm"))
-                properties.replace("mazeGeneratingAlgorithm", value);
-            else{
-                properties.setProperty("mazeGeneratingAlgorithm", value);
+            else {
+                throw new Exception("Invalid inputs: Generator can't be null");
             }
-            properties.store(configurationOut, null); //save the changes to the file
         }
-        else {
-            throw new Exception("Invalid inputs: Generator can't be null");
-        }
-    }
+        catch (Exception e){
+            //if the user sent wrong value, remain with the old value
+    }}
 
-    public static void setSearchingAlgorithm(String value) throws Exception {
-        Set<String> set = new HashSet<String>(Arrays.asList("DepthFirstSearch","BreadthFirstSearch","BestFirstSearch"));
-        //make sure that value != null, and have a valid content
-        if (value != null) {
-            if(!set.contains(value)){
-                throw new Exception("Invalid inputs: given Searching Algorithm name is wrong: only DepthFirstSearch, BreadthFirstSearch, BestFirstSearch are valid");
+    public static void setSearchingAlgorithm(String value){
+        try{
+            Set<String> set = new HashSet<String>(Arrays.asList("DepthFirstSearch","BreadthFirstSearch","BestFirstSearch"));
+            //make sure that value != null, and have a valid content
+            if (value != null) {
+                if(!set.contains(value)){
+                    throw new Exception("Invalid inputs: given Searching Algorithm name is wrong: only DepthFirstSearch, BreadthFirstSearch, BestFirstSearch are valid");
+                }
+                //check if this Property is already exist and update the right value -> if not -> create a new one
+                if(properties.containsKey("mazeSearchingAlgorithm"))
+                    properties.replace("mazeSearchingAlgorithm", value);
+                else{
+                    properties.setProperty("mazeSearchingAlgorithm", value);
+                }
+                properties.store(configurationOut, null); //save the changes to the file
             }
-            //check if this Property is already exist and update the right value -> if not -> create a new one
-            if(properties.containsKey("mazeSearchingAlgorithm"))
-                properties.replace("mazeSearchingAlgorithm", value);
-            else{
-                properties.setProperty("mazeSearchingAlgorithm", value);
+            else {
+                throw new Exception("Invalid inputs: Searching Algorithm can't be null");
             }
-            properties.store(configurationOut, null); //save the changes to the file
         }
-        else {
-            throw new Exception("Invalid inputs: Searching Algorithm can't be null");
-        }
+         catch (Exception e) {
+             //if the user sent wrong value, remain with the old value
+
+         }
     }
 
     //return the value of the threadPoolSize property (if it's null -> set default of 3)

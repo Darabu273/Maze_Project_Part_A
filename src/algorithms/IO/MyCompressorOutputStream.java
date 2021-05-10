@@ -16,8 +16,7 @@ public class MyCompressorOutputStream extends OutputStream {
     }
 
     @Override
-    public void write(int b) throws IOException {
-
+    public void write(int b) {
     }
     @Override
     //maze content compress method: compress blocks of 8-bits of 1&0 values (one byte)

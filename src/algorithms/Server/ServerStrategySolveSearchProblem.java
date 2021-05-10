@@ -6,46 +6,51 @@ import java.io.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+//todo: maze string - compressed
+
 /**
  * ServerStrategySolveSearchProblem implements IServerStrategy interface
  * applyStrategy will solve the a maze problem and will return Solution Object of the maze.
  */
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy {
+    String tempDirectoryPath = System.getProperty("java.io.tmpdir"); //the temporary directory path
     ConcurrentHashMap<String, Integer> SolutionsMap = BuildHashMapFromFile(); //hash map that save the solution index for each maze
     private AtomicInteger solNumber = new AtomicInteger(SolutionsMap.size()); //solNumber will hold the uniqe index of each maze-solution
-    String tempDirectoryPath = System.getProperty("java.io.tmpdir"); //the temporary directory path
-
-    //default constructor with exception
-    public ServerStrategySolveSearchProblem() throws IOException {
-    }
-
-    //todo: update hashMap from file
-    //todo: create hashMap file if not exist
-    //todo: update solNumber by hashMap Size
-    //todo: update file after each change of the map
 
     //this func will create the SolutionsMap file if not exist, or if it does - build the SolutionsMap by the file content
     //with this operation, we will remember the solutions of old mazes that this server requested to solve in the past
-    public ConcurrentHashMap<String, Integer> BuildHashMapFromFile() throws IOException {
+    public ConcurrentHashMap<String, Integer> BuildHashMapFromFile() {
         //create an empty map
         ConcurrentHashMap<String, Integer> mapOfSolutions = new ConcurrentHashMap<>(); //hash map that save the solution index for each m
-        //check if SolutionsMap file exist (if it's the first server call - it will not be exist_
-        File solFile = new File(tempDirectoryPath+"\\SolutionsMap.txt");
-        if(!solFile.exists()) {
-            solFile.createNewFile(); //create the file in the directory
-            return mapOfSolutions; //return empty map
-        }
-        else if(solFile.exists() && !solFile.isDirectory()) {
-            BufferedReader reader = new BufferedReader(new FileReader(tempDirectoryPath+"\\SolutionsMap.txt"));
-            String line = reader.readLine();
-            while (line != null){
-                //todo: read to content into hash map
-                line= reader.readLine();
+        try{
+            //check if SolutionsMap file exist (if it's the first server call - it will not be exist)
+            File solFile = new File(tempDirectoryPath+"\\SolutionsMap.txt");
+            if(!solFile.exists()) {
+                solFile.createNewFile(); //create the file in the directory
+                return mapOfSolutions; //return empty map
             }
-            reader.close();
+            //if file is exist, read file content into the hash map, line by line
+            else if(solFile.exists() && !solFile.isDirectory()) {
+                BufferedReader reader = new BufferedReader(new FileReader(tempDirectoryPath+"\\SolutionsMap.txt"));
+                String line = reader.readLine();
+                while (line != null){
+                    int indexOfP = line.indexOf(",");
+                    if(indexOfP>=0){ //if "," is exist (no empty line)
+                        String tempMaze = line.substring(0,indexOfP);
+                        String tempNumber = line.substring(indexOfP+1);
+                        Integer number = Integer.parseInt(tempNumber);
+                        mapOfSolutions.put(tempMaze, number); //update hash map with maze content and solution index
+                        line= reader.readLine();
+                    }
+                }
+                reader.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
         return mapOfSolutions;
     }
 
@@ -82,7 +87,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 String mazeFileName = currMazeSolIndex.toString() + ".txt"; //the name of the solution file
                 //updateClientAndHash(mazeContent, solution, currMazeSolIndex, mazeFileName);
                 SolutionsMap.put(mazeContent, currMazeSolIndex); //add this maze string & index of new solution to the map
-                //todo: update hash map file
+                UpdateHashMapFile(mazeContent, currMazeSolIndex); //update the file that saves the hash map content in synchronized method
                 ObjectOutputStream solutionToFile = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath+"\\"+mazeFileName));
                 solutionToFile.writeObject(solution);
                 solutionToFile.flush();
@@ -101,6 +106,27 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             e.printStackTrace();
         }
 
+    }
+
+    //update the file that saves the hash map content in synchronized way - prevent threads races
+    private synchronized void UpdateHashMapFile(String mazeContent, Integer currMazeSolIndex) {
+        try {
+            String str = mazeContent + "," + currMazeSolIndex;
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempDirectoryPath+"\\SolutionsMap.txt", true));
+            writer.append(str);
+            writer.append("\n");
+            writer.close();
+
+            try (BufferedReader br = new BufferedReader(new FileReader(tempDirectoryPath+"\\SolutionsMap.txt"))) { //todo delete
+                String line;
+                while ((line = br.readLine()) != null) {
+                    System.out.println(line);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -69,7 +69,7 @@ public class Server {
         }
     }
 
-    public static void defineConfigurations(String Property, String value) throws Exception {
+    public static void defineConfigurations(String Property, String value){
         if(Property.equals("threadPoolSize")){
             Configurations.setThreadPoolSize(value);
         }

@@ -25,7 +25,7 @@ public class RunCommunicateWithServers {
         mazeGeneratingServer.start();
 
         //Communicating with servers
-        CommunicateWithServer_MazeGenerating();
+        //CommunicateWithServer_MazeGenerating(); //todo
         CommunicateWithServer_SolveSearchProblem();
 
         //Stopping all servers
@@ -73,7 +73,7 @@ public class RunCommunicateWithServers {
                                 ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                                 toServer.flush();
                                 MyMazeGenerator mg = new MyMazeGenerator();
-                                Maze maze = mg.generate(50, 50);
+                                Maze maze = mg.generate(5, 5);
                                 maze.print();
                                 toServer.writeObject(maze); //send maze to server
                                 toServer.flush();

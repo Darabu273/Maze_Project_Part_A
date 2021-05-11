@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 //todo: maze string - compressed
+//todo: check about print stack trace and all the exceptions in Server Pack and IO pack
 
 /**
  * ServerStrategySolveSearchProblem implements IServerStrategy interface

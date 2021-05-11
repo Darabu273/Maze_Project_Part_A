@@ -17,11 +17,13 @@ public class MyDecompressorInputStream extends InputStream {
     }
 
     @Override
+    //empty - must override the method
     public int read() {
         return 0;
     }
 
-    public int read(byte[] byteArray) throws IOException {//read the meta data of the maze and remove the data from the compression
+    public int read(byte[] byteArray){//read the meta data of the maze and remove the data from the compression
+        try{
         byte[] contents = in.readAllBytes();
         int i;
         for (i = 0; i < 12; i++) { // copy all the 12 chars (meta data) to new byte array as is.
@@ -40,6 +42,7 @@ public class MyDecompressorInputStream extends InputStream {
             }
         }
 
+
         //add the last byte (last block of cells) to the byte array (might be less than 8, so we have to check the reminder of the size)
         int howMuchLeft = byteArray.length-i;
         int val = contents[contents.length-1];
@@ -50,6 +53,9 @@ public class MyDecompressorInputStream extends InputStream {
         for (int k = 0; k < howMuchLeft; k++) {
             byteArray[i]=(byte) binaryVal[k+(8-howMuchLeft)]; //insert to byteArray the last howMuchLeft-values from the end of the binaryVal array
             i++;
+        }}
+        catch (IOException e) {
+            e.printStackTrace();
         }
 
         return 0;

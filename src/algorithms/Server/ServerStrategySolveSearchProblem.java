@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 //todo: maze string - compressed
-//todo: check about print stack trace and all the exceptions in Server Pack and IO pack
 
 /**
  * ServerStrategySolveSearchProblem implements IServerStrategy interface
@@ -47,8 +46,6 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 }
                 reader.close();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,7 +55,6 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
     @Override
     public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
-
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
 
@@ -75,6 +71,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             if(this.SolutionsMap.containsKey(mazeContent)){ //check if this maze solution is already exists
                 currMazeSolIndex=SolutionsMap.get(mazeContent); //current maze solution index = the index that saves in map
                 //return the solution that save in it's file
+                System.out.println(currMazeSolIndex); //todo delete
                 String mazeFileName = currMazeSolIndex.toString() + ".txt"; //the name of the solution file
                 ObjectInputStream solFromFile = new ObjectInputStream(new FileInputStream(tempDirectoryPath+"\\"+mazeFileName));
                 solution = (Solution) solFromFile.readObject();
@@ -101,8 +98,6 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             fromClient.close();
             toClient.close();
 
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -18,7 +18,8 @@ public class SimpleCompressorOutputStream extends OutputStream {
     public void write(int b) { }
 
     @Override
-    public void write(byte[] b) throws IOException {
+    public void write(byte[] b){
+        try{
         byte[] bytes = new  byte[b.length];
         int i;
         for (i = 0; i < 12; i++) { //copy the values of - rows, columns, start position and goal position as is to new byte array.
@@ -56,7 +57,6 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
             }
         }
-
         //add the last counter-chars to the array
         int targetEnd = counter;
         if(counter > 255) // when counter bigger than 255 we will separate the num of the current byte with zero between the values.
@@ -72,7 +72,9 @@ public class SimpleCompressorOutputStream extends OutputStream {
         }}
         bytes[i] =(byte)targetEnd; //remainder
         out.write(bytes,i,1);// write to out the counter for this byte
-    }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }}
 }
 
 

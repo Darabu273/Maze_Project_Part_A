@@ -25,21 +25,16 @@ public class Configurations {
     private static Configurations propertiesInstance = null; // The only instance of Configuration
     public static final String fileName = "./resources/config.properties"; //location of the configuration file
     private static Properties properties;
-    private static OutputStream configurationOut;
 
     private Configurations() { //private constructor
-        try (InputStream configurationIn = new FileInputStream(fileName)) {
+        InputStream configurationIn = null;
+        try {
+            configurationIn = Configurations.class.getResourceAsStream("/config.properties");
             properties= new Properties();
             properties.load(configurationIn); //load configuration file input
-            configurationOut = new FileOutputStream(fileName);
-            //set default configuration - in case of no initialization
-            properties.setProperty("threadPoolSize", "3");
-            properties.setProperty("mazeGeneratingAlgorithm", "MyMazeGenerator");
-            properties.setProperty("mazeSearchingAlgorithm", "BestFirstSearch");
-            //todo: check the load
-
         } catch (IOException ex) {
             //if configuration file is empty, remain with default values for properties
+            ex.printStackTrace();
         }
     }
 
@@ -62,10 +57,12 @@ public class Configurations {
             else{
                 properties.setProperty("threadPoolSize" , value);
             }
+            OutputStream configurationOut= new FileOutputStream(fileName);
             properties.store(configurationOut, null); //save the changes to the file
         }
         catch (NumberFormatException | IOException e){
             //if the user sent wrong value / problem have been occurred, remain with the old value
+            e.printStackTrace();
         }
     }
 
@@ -83,6 +80,7 @@ public class Configurations {
                 else{
                     properties.setProperty("mazeGeneratingAlgorithm", value);
                 }
+                OutputStream configurationOut= new FileOutputStream(fileName);
                 properties.store(configurationOut, null); //save the changes to the file
             }
             else {
@@ -91,6 +89,7 @@ public class Configurations {
         }
         catch (Exception e){
             //if the user sent wrong value, remain with the old value
+            e.printStackTrace();
     }}
 
     public static void setSearchingAlgorithm(String value){
@@ -107,6 +106,7 @@ public class Configurations {
                 else{
                     properties.setProperty("mazeSearchingAlgorithm", value);
                 }
+                OutputStream configurationOut= new FileOutputStream(fileName);
                 properties.store(configurationOut, null); //save the changes to the file
             }
             else {
@@ -115,6 +115,7 @@ public class Configurations {
         }
          catch (Exception e) {
              //if the user sent wrong value, remain with the old value
+             e.printStackTrace();
 
          }
     }
@@ -122,9 +123,6 @@ public class Configurations {
     //return the value of the threadPoolSize property (if it's null -> set default of 3)
     public static int getThreadsNumber() {
         String TreadsNumber = properties.getProperty("threadPoolSize");
-        if(TreadsNumber==null){
-            TreadsNumber="3";
-        }
         return Integer.parseInt(TreadsNumber);
     }
 

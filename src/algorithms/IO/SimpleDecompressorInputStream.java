@@ -19,7 +19,8 @@ public class SimpleDecompressorInputStream extends InputStream {
         return 0;
     }
 
-    public int read(byte[] byteArray) throws IOException {//read the meta data of the maze and remove the data from the compression
+    public int read(byte[] byteArray){//read the meta data of the maze and remove the data from the compression
+        try{
         byte[] contents = in.readAllBytes();
         int i;
         int currentByte = 1;
@@ -37,6 +38,8 @@ public class SimpleDecompressorInputStream extends InputStream {
                 i++;
             }
 
+        }} catch (IOException e) {
+            e.printStackTrace();
         }
         return 0;
     }

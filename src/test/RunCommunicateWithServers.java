@@ -23,7 +23,6 @@ public class RunCommunicateWithServers {
 
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
-
         //Communicating with servers
         //CommunicateWithServer_MazeGenerating(); //todo
         CommunicateWithServer_SolveSearchProblem();

@@ -27,6 +27,7 @@ public class Server {
         this.listeningIntervalMS=listeningIntervalMS;
         treadsNumber = Configurations.getThreadsNumber();
         this.threadPool = Executors.newFixedThreadPool(treadsNumber);
+
     }
     public void start() { // create server thread that will enable to the Main Program to rum parallel to the other threads that execute there task.
         new Thread(()->{
@@ -47,7 +48,8 @@ public class Server {
                     threadPool.execute(() -> {handleClient(clientSocket);});
 
                 } catch (SocketTimeoutException e) {
-                    //do nothing
+                    //ignore the exception message - will be handled in the next part
+                    //e.printStackTrace(); todo : open
                 }
             }
             threadPool.shutdown(); //when all the tasks we want to do will finish we will shut down the server service.
@@ -69,15 +71,4 @@ public class Server {
         }
     }
 
-    public static void defineConfigurations(String Property, String value){
-        if(Property.equals("threadPoolSize")){
-            Configurations.setThreadPoolSize(value);
-        }
-        else if(Property.equals("mazeGeneratingAlgorithm")){
-            Configurations.setGenerator(value);
-        }
-        else if(Property.equals("mazeSearchingAlgorithm")){
-            Configurations.setSearchingAlgorithm(value);
-        }
-    }
 }

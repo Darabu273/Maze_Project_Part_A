@@ -49,7 +49,7 @@ public class Server {
 
                 } catch (SocketTimeoutException e) {
                     //ignore the exception message - will be handled in the next part
-                    //e.printStackTrace(); todo : open
+                    //e.printStackTrace(); // no need to print nothing
                 }
             }
             threadPool.shutdown(); //when all the tasks we want to do will finish we will shut down the server service.

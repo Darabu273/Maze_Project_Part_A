@@ -27,7 +27,7 @@ public class Configurations {
     private static Properties properties;
 
     private Configurations() { //private constructor
-        InputStream configurationIn = null;
+        InputStream configurationIn;
         try {
             configurationIn = Configurations.class.getResourceAsStream("/config.properties");
             properties= new Properties();

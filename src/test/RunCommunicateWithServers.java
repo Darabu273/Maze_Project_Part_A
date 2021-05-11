@@ -17,14 +17,14 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class RunCommunicateWithServers {
-    public static void main(String[] args) throws Exception {//Initializing servers
+    public static void main(String[] args){//Initializing servers
         Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
         Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
 
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
         //Communicating with servers
-        //CommunicateWithServer_MazeGenerating(); //todo
+        CommunicateWithServer_MazeGenerating();
         CommunicateWithServer_SolveSearchProblem();
 
         //Stopping all servers
@@ -72,7 +72,7 @@ public class RunCommunicateWithServers {
                                 ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                                 toServer.flush();
                                 MyMazeGenerator mg = new MyMazeGenerator();
-                                Maze maze = mg.generate(5, 5);
+                                Maze maze = mg.generate(50, 50);
                                 maze.print();
                                 toServer.writeObject(maze); //send maze to server
                                 toServer.flush();

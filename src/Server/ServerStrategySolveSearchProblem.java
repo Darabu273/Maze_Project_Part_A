@@ -1,12 +1,11 @@
-package algorithms.Server;
+package Server;
 
+import IO.MyCompressorOutputStream;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.*;
 import java.io.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
-//todo: maze string - compressed
 
 /**
  * ServerStrategySolveSearchProblem implements IServerStrategy interface
@@ -34,7 +33,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             else if(solFile.exists() && !solFile.isDirectory()) {
                 BufferedReader reader = new BufferedReader(new FileReader(tempDirectoryPath+"\\SolutionsMap.txt"));
                 String line = reader.readLine();
-                while (line != null){
+                while (line != null){ //read line by line and update the hash map
                     int indexOfP = line.indexOf(",");
                     if(indexOfP>=0){ //if "," is exist (no empty line)
                         String tempMaze = line.substring(0,indexOfP);
@@ -61,17 +60,22 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             ISearchingAlgorithm searcher = Configurations.getSearchingAlgorithm(); //searcher to solve the given maze
 
             Maze clientMaze =(Maze)fromClient.readObject(); //read maze-input from client
-            byte[] contentInByte = clientMaze.toByteArray();
+
+            //save maze compressed string in mazeContent variable (compress, than save to mazeContent)
+            ByteArrayOutputStream sourceToSend =  new ByteArrayOutputStream(clientMaze.toByteArray().length);
+            OutputStream out = new MyCompressorOutputStream(sourceToSend);
+            out.write(clientMaze.toByteArray());
+            out.flush();
+            byte[] CompressedContentInByte = sourceToSend.toByteArray();
             String mazeContent = ""; //convert maze content (in bytes) to string
-            for (int i = 0; i < contentInByte.length; i++) {
-                mazeContent+=contentInByte[i];
+            for (int i = 0; i < CompressedContentInByte.length; i++) {
+                mazeContent+=CompressedContentInByte[i];
             }
             Integer currMazeSolIndex; //will hold the current maze solution index
             Solution solution;
             if(this.SolutionsMap.containsKey(mazeContent)){ //check if this maze solution is already exists
                 currMazeSolIndex=SolutionsMap.get(mazeContent); //current maze solution index = the index that saves in map
                 //return the solution that save in it's file
-                System.out.println(currMazeSolIndex); //todo delete
                 String mazeFileName = currMazeSolIndex.toString() + ".txt"; //the name of the solution file
                 ObjectInputStream solFromFile = new ObjectInputStream(new FileInputStream(tempDirectoryPath+"\\"+mazeFileName));
                 solution = (Solution) solFromFile.readObject();
@@ -104,21 +108,15 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
     }
 
-    //update the file that saves the hash map content in synchronized way - prevent threads races
+    //update the file that saves the hash map content in synchronized way - prevent threads race
     private synchronized void UpdateHashMapFile(String mazeContent, Integer currMazeSolIndex) {
         try {
+            //write the new key-value pair into the file
             String str = mazeContent + "," + currMazeSolIndex;
             BufferedWriter writer = new BufferedWriter(new FileWriter(tempDirectoryPath+"\\SolutionsMap.txt", true));
             writer.append(str);
             writer.append("\n");
             writer.close();
-
-            try (BufferedReader br = new BufferedReader(new FileReader(tempDirectoryPath+"\\SolutionsMap.txt"))) { //todo delete
-                String line;
-                while ((line = br.readLine()) != null) {
-                    System.out.println(line);
-                }
-            }
 
         } catch (IOException e) {
             e.printStackTrace();

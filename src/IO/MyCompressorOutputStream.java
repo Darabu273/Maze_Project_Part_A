@@ -1,4 +1,5 @@
-package algorithms.IO;
+package IO;
+
 
 import java.io.IOException;
 import java.io.OutputStream;

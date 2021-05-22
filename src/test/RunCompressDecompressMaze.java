@@ -1,7 +1,7 @@
 package test;
 
-import algorithms.IO.MyCompressorOutputStream;
-import algorithms.IO.MyDecompressorInputStream;
+import IO.MyCompressorOutputStream;
+import IO.MyDecompressorInputStream;
 import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;

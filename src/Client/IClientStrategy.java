@@ -1,4 +1,4 @@
-package algorithms.Client;
+package Client;
 
 import java.io.InputStream;
 import java.io.OutputStream;

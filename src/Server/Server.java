@@ -1,4 +1,5 @@
-package algorithms.Server;
+package Server;
+
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,7 +14,7 @@ import java.util.concurrent.Executors;
  */
 public class Server {
     private int port;
-   private int listeningIntervalMS;
+    private int listeningIntervalMS;
     private IServerStrategy strategy;
     private ExecutorService threadPool;
     private volatile boolean stop;

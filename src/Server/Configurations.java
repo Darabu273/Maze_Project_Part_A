@@ -1,4 +1,4 @@
-package algorithms.Server;
+package Server;
 
 import algorithms.mazeGenerators.EmptyMazeGenerator;
 import algorithms.mazeGenerators.IMazeGenerator;
@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
-
 
 /**
  * Configurations class- Allows the user to configure the thread-pool size, the generator of the maze, and the searching algorithm
@@ -90,7 +89,7 @@ public class Configurations {
         catch (Exception e){
             //if the user sent wrong value, remain with the old value
             e.printStackTrace();
-    }}
+        }}
 
     public static void setSearchingAlgorithm(String value){
         try{
@@ -113,11 +112,11 @@ public class Configurations {
                 throw new Exception("Invalid inputs: Searching Algorithm can't be null");
             }
         }
-         catch (Exception e) {
-             //if the user sent wrong value, remain with the old value
-             e.printStackTrace();
+        catch (Exception e) {
+            //if the user sent wrong value, remain with the old value
+            e.printStackTrace();
 
-         }
+        }
     }
 
     //return the value of the threadPoolSize property (if it's null -> set default of 3)

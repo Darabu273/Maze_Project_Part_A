@@ -1,4 +1,5 @@
-package algorithms.Client;
+package Client;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;

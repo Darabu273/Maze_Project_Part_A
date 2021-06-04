@@ -20,6 +20,7 @@ public class Server {
     private volatile boolean stop;
     private static Configurations configFile = Configurations.getConfigurations();
     private int treadsNumber; //how many threads we have in the pool
+    private Thread serverThread;
 
 
     public Server(int port, int listeningIntervalMS ,IServerStrategy strategy) {
@@ -31,9 +32,16 @@ public class Server {
 
     }
     public void start() { // create server thread that will enable to the Main Program to rum parallel to the other threads that execute there task.
-        new Thread(()->{
-            threadStart(); }).start();
+        serverThread = new Thread(()->threadStart());
+        serverThread.start();
+    }
 
+    public void JoinTermination(){
+        try {
+            serverThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void threadStart(){ //connect between Server and Client with the same port
